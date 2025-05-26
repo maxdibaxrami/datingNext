@@ -13,7 +13,9 @@ import {
   retrieveLaunchParams,
   emitEvent,
   themeParams,
-  viewport,
+  bindMiniAppCssVars,
+  requestSafeAreaInsets,
+  requestFullscreen,
 } from '@telegram-apps/sdk-react';
 
 /**
@@ -47,7 +49,6 @@ export async function init(options: {
           if (firstThemeSent) {
             tp = themeParamsState();
           } else {
-
             firstThemeSent = true;
             tp ||= retrieveLaunchParams().tgWebAppThemeParams;
           }
@@ -75,45 +76,17 @@ export async function init(options: {
   if (mountMiniAppSync.isAvailable()) {
     mountMiniAppSync();
     bindThemeParamsCssVars();
+    bindMiniAppCssVars()
   }
 
   if (mountViewport.isAvailable()) {
     mountViewport().then(() => {
       bindViewportCssVars();
+      requestSafeAreaInsets();
+      requestFullscreen()
+      
     });
   }
 
-  if (viewport.mount.isAvailable()) {
-  try {
-    const promise = viewport.mount();
-    viewport.isMounting(); // true
-    await promise;
-    viewport.isMounting(); // false
-    viewport.isMounted(); // true
-    viewport.requestFullscreen()
-    viewport.bindCssVars()
-  } catch (err) {
-    viewport.mountError(); // equals "err"
-    viewport.isMounting(); // false
-    viewport.isMounted(); // false
-  }
-}
 
-  if (themeParams.bindCssVars.isAvailable()) {
-    themeParams.bindCssVars();
-    // Creates CSS variables like:
-    // --tg-theme-button-color: #aabbcc
-    // --tg-theme-accent-text-color: #aabbcc
-    // --tg-theme-bg-color: #aabbcc
-    // ...
-
-    themeParams.bindCssVars(key => `--my-prefix-${key}`);
-    // Creates CSS variables like:
-    // --my-prefix-buttonColor: #aabbcc
-    // --my-prefix-accentTextColor: #aabbcc
-    // --my-prefix-bgColor: #aabbcc
-    // ...
-
-    // themeParams.isCssVarsBound() -> true
-  }
 }
