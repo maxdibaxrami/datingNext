@@ -71,6 +71,7 @@ export async function init(options: {
   // Mount all components used in the project.
   mountBackButton.ifAvailable();
   restoreInitData();
+  themeParams.mount();
 
   if (mountMiniAppSync.isAvailable()) {
     mountMiniAppSync();
@@ -84,6 +85,7 @@ export async function init(options: {
     })
     .then(() => {
       // Bind the CSS variables for the viewport
+      bindViewportCssVars()
       viewport.bindCssVars(); // Binds the default Telegram theme parameters
       viewport.requestFullscreen();
       
