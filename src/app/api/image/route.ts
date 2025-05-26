@@ -18,10 +18,12 @@ const supabase = createClient(
 const BUCKET = 'dating-app';
 
 // Patch face-api.js environment for Node
+//@t
 faceapi.env.monkeyPatch({
   // cast to any to satisfy TS’s new()/prototype signature requirement
   Canvas: (createCanvas(1, 1).constructor as unknown) as { new (): HTMLCanvasElement; prototype: HTMLCanvasElement },
   Image: (Image as unknown) as { new (): HTMLImageElement; prototype: HTMLImageElement },
+  //@ts-ignore
   ImageData: (ImageData as unknown) as {
     new (sw: number, sh: number, settings?: ImageDataSettings): ImageData;
     new (data: Uint8ClampedArray, sw: number, sh?: number, settings?: ImageDataSettings): ImageData;

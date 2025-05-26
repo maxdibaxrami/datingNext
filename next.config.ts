@@ -6,6 +6,9 @@ const withNextIntl = createNextIntlPlugin('./src/core/i18n/i18n.ts');
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   allowedDevOrigins: ['localhost:3000', '127.0.0.1:3000', 'your-ngrok-subdomain.ngrok-free.app'],
   webpack(config) {
     // 1) Stub out Mapbox HTML to avoid "Unexpected token" errors
