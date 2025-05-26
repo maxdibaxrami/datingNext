@@ -13,6 +13,22 @@ body {
   margin: 0;
 }
 
+.safe-area-top {
+  margin-top: var(--tg-viewport-safe-area-inset-top);
+}
+
+.safe-area-top---padding {
+  padding-top: var(--tg-viewport-safe-area-inset-top);
+}
+
+.safe-area-bottom---padding {
+  padding-bottom: var(--tg-viewport-safe-area-inset-bottom);
+}
+
+.safe-area-top---padding-----height {
+  height: var(--tg-viewport-safe-area-inset-top);
+}
+
 
 @keyframes sparkle {
   0%, 100% {

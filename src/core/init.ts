@@ -77,16 +77,24 @@ export async function init(options: {
     bindThemeParamsCssVars();
   }
 
-  if (mountViewport.isAvailable()) {
-    mountViewport().then(() => {
-      bindViewportCssVars();
-    });
-  }
+  void viewport
+    .mount()
+    .catch((e) => {
+      console.error('Something went wrong mounting the viewport', e);
+    })
+    .then(() => {
+      // Bind the CSS variables for the viewport
+      viewport.bindCssVars(); // Binds the default Telegram theme parameters
+      viewport.requestFullscreen();
+      
+      if(viewport.bindCssVars.isAvailable()){
+          viewport.requestFullscreen();
+      }
+                
+      viewport.expand()
 
-  if (viewport.requestFullscreen.isAvailable()) {
-    await viewport.requestFullscreen();
-    viewport.isFullscreen(); // true
-  }
+  });
+
 
   if (themeParams.bindCssVars.isAvailable()) {
     themeParams.bindCssVars();
