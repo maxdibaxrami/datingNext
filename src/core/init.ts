@@ -71,32 +71,33 @@ export async function init(options: {
   // Mount all components used in the project.
   mountBackButton.ifAvailable();
   restoreInitData();
-  themeParams.mount();
 
   if (mountMiniAppSync.isAvailable()) {
     mountMiniAppSync();
     bindThemeParamsCssVars();
   }
 
-  void viewport
-    .mount()
-    .catch((e) => {
-      console.error('Something went wrong mounting the viewport', e);
-    })
-    .then(() => {
-      // Bind the CSS variables for the viewport
-      bindViewportCssVars()
-      viewport.bindCssVars(); // Binds the default Telegram theme parameters
-      viewport.requestFullscreen();
-      
-      if(viewport.bindCssVars.isAvailable()){
-          viewport.requestFullscreen();
-      }
-                
-      viewport.expand()
+  if (mountViewport.isAvailable()) {
+    mountViewport().then(() => {
+      bindViewportCssVars();
+    });
+  }
 
-  });
-
+  if (viewport.mount.isAvailable()) {
+  try {
+    const promise = viewport.mount();
+    viewport.isMounting(); // true
+    await promise;
+    viewport.isMounting(); // false
+    viewport.isMounted(); // true
+    viewport.requestFullscreen()
+    viewport.bindCssVars()
+  } catch (err) {
+    viewport.mountError(); // equals "err"
+    viewport.isMounting(); // false
+    viewport.isMounted(); // false
+  }
+}
 
   if (themeParams.bindCssVars.isAvailable()) {
     themeParams.bindCssVars();
