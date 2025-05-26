@@ -46,6 +46,7 @@ export async function init(options: {
           if (firstThemeSent) {
             tp = themeParamsState();
           } else {
+            
             firstThemeSent = true;
             tp ||= retrieveLaunchParams().tgWebAppThemeParams;
           }
