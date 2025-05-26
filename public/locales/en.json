@@ -1,6 +1,49 @@
 {
   "i18n": {
     "header": "Application supports i18n",
-    "footer": "You can select a different language from the dropdown menu."
+    "footer": "You can select a different language from the dropdown menu.",
+    "Selectlanguageforcontinue":"Select language for continue",
+    "privacy_policy":"By clicking 'Next', you agree to our Privacy Policy and Terms of Service.",
+    "name":"Name",
+    "min_max_2_18":"Minimum enter 2 characters and maximum 18",
+    "EnteryourBio":"Enter your Bio",
+    "Iam":"I am:",
+    "Selectedplancanbechangedatanytime":"Selected plan can be changed at any time.",
+    "Male":"Male",
+    "Female":"Female",
+    "Fillprofiledata": "Complete Your Profile Information",
+
+    "day":"day",
+    "month":"month",
+    "year":"year",
+    "enter_date_of_birth":"Enter date of birth",
+    "why_you_are_here":"Why you are here?",
+
+
+    "chat":"Chat",
+    "casual":"Casual",
+    "long_term":"Long term",
+    "friends":"Friends",
+    "virtual":"Virtual",
+
+    "chat_description":"Just looking to talk and connect casually.",
+    "casual_description":"Open to light, no-pressure meetups.",
+    "long_term_description":"Interested in building a serious relationship.",
+    "friends_description":"Looking to make new friends and hang out.",
+    "virtual_description":"Prefer to keep things online for now.",
+    "Upload_Profile_Images":"Upload Profile Images",
+    "description_profile_photo":"Choose a clear, smiling photo that shows your face well — first impressions matter!",
+    "profile_image":"Profile Image",
+    "next":"Next",
+    "previous":"Previous",
+    "uploading":"Uploading ... ",
+    "may_it_take_a_while_please_wait":"may it take a while please wait.",
+    "login_description":"Discover new connections, chat, and find matches that fit your vibe!",
+    "name_length_error":"Name must Minimum 2 characters and maximum 15. ",
+    "bio_length_error":"Bio must be 3–100 characters. ",
+    "invalid_dob":"enter valid date of birth",
+    "need_min_images":"Please upload at least 2 images and maximum 6 images"
+
+
   }
 }

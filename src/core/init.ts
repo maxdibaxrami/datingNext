@@ -12,6 +12,7 @@ import {
   themeParamsState,
   retrieveLaunchParams,
   emitEvent,
+  themeParams,
 } from '@telegram-apps/sdk-react';
 
 /**
@@ -78,5 +79,23 @@ export async function init(options: {
     mountViewport().then(() => {
       bindViewportCssVars();
     });
+  }
+
+  if (themeParams.bindCssVars.isAvailable()) {
+    themeParams.bindCssVars();
+    // Creates CSS variables like:
+    // --tg-theme-button-color: #aabbcc
+    // --tg-theme-accent-text-color: #aabbcc
+    // --tg-theme-bg-color: #aabbcc
+    // ...
+
+    themeParams.bindCssVars(key => `--my-prefix-${key}`);
+    // Creates CSS variables like:
+    // --my-prefix-buttonColor: #aabbcc
+    // --my-prefix-accentTextColor: #aabbcc
+    // --my-prefix-bgColor: #aabbcc
+    // ...
+
+    // themeParams.isCssVarsBound() -> true
   }
 }

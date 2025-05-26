@@ -21,7 +21,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
     <html lang={locale} suppressHydrationWarning>
       <body>
         <I18nProvider>
-          <Root>{children}</Root>
+            <Root>{children}</Root>
         </I18nProvider>
       </body>
     </html>

@@ -1,26 +1,57 @@
 'use client';
 
-import { Select } from '@telegram-apps/telegram-ui';
-import { useLocale } from 'next-intl';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { Section, List, Cell, Image, Radio } from '@telegram-apps/telegram-ui';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { localesMap } from '@/core/i18n/config';
 import { setLocale } from '@/core/i18n/locale';
 import { Locale } from '@/core/i18n/types';
+import { FontHandller } from './fontHandler';
+import { useSignUpStore } from '@/lib/stores/useSignUpStore';
 
-export const LocaleSwitcher: FC = () => {
-  const locale = useLocale();
+type Props = {
+  /** Fires each time the user explicitly selects a language. */
+  onSelect?: (locale: Locale) => void;
+};
 
-  const onChange = (value: string) => {
-    const locale = value as Locale;
-    setLocale(locale);
-  };
+export const LocaleSwitcher: FC<Props> = ({ onSelect }) => {
+  const activeLocale = useLocale() as Locale;
+  const [selectedLang, setSelectedLang] = useState<Locale>(activeLocale);
+  const setLanguage = useSignUpStore(s => s.setLanguage);
+
+  const t = useTranslations('i18n');
+
+  /* keep local state in sync with external locale changes */
+  useEffect(() => setSelectedLang(activeLocale), [activeLocale]);
+
+  /* apply side-effects when selection changes */
+  useEffect(() => {
+    if (selectedLang !== activeLocale) {
+      setLocale(selectedLang);
+      document.documentElement.lang = selectedLang;
+      document.documentElement.dir = ['ar', 'fa'].includes(selectedLang) ? 'rtl' : 'ltr';
+      onSelect?.(selectedLang);          // ★ notify parent
+      setLanguage(selectedLang);
+    }
+    FontHandller();
+  }, [selectedLang, activeLocale]);
 
   return (
-    <Select value={locale} onChange={({ target }) => onChange(target.value)}>
-      {localesMap.map((locale) => (
-        <option key={locale.key} value={locale.key}>{locale.title}</option>
-      ))}
-    </Select>
+    <List>
+      <Section header={t('Selectlanguageforcontinue')} footer={t('privacy_policy')}>
+        {localesMap.map(({ key, title, flag }) => (
+          <Cell
+            key={key}
+            before={flag && <Image src={flag} width={24} height={24} alt={key} />}
+            after={<Radio checked={selectedLang === key} />}
+            onClick={() => setSelectedLang(key as Locale)}
+            className="py-2"
+          >
+            {title}
+          </Cell>
+        ))}
+      </Section>
+    </List>
   );
 };
