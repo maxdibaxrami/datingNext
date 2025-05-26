@@ -29,6 +29,18 @@ body {
   height: var(--tg-viewport-safe-area-inset-top);
 }
 
+.top-bar-height{
+  height: var(--tg-viewport-content-safe-area-inset-top);
+}
+
+.top-bar-height-padding-top{
+  padding-top: var(--tg-viewport-content-safe-area-inset-top);
+}
+
+.main-content-safe{
+  height: calc(var(--tg-viewport-safe-area-inset-top) + var(--tg-viewport-content-safe-area-inset-top));
+}
+
 
 @keyframes sparkle {
   0%, 100% {
