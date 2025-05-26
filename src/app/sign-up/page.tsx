@@ -68,7 +68,7 @@ export default function SignUp() {
       {active === Step.Profile  && <ProfileData      onValidChange={onValid[Step.Profile]}  />}
       {active === Step.Reason   && <WhyYouAreHere    onValidChange={onValid[Step.Reason]}   />}
       {active === Step.Photos   && <UploadImageStep onValidChange={onValid[Step.Photos]}   />}
-      {active === Step.Final    && <SignUpFinalStep />}
+      {active === Step.Final    && <SignUpFinalStep /> }
 
       <MainButton
         text={t('next')}
