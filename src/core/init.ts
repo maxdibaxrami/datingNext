@@ -13,6 +13,7 @@ import {
   retrieveLaunchParams,
   emitEvent,
   themeParams,
+  viewport,
 } from '@telegram-apps/sdk-react';
 
 /**
@@ -46,7 +47,7 @@ export async function init(options: {
           if (firstThemeSent) {
             tp = themeParamsState();
           } else {
-            
+
             firstThemeSent = true;
             tp ||= retrieveLaunchParams().tgWebAppThemeParams;
           }
@@ -80,6 +81,11 @@ export async function init(options: {
     mountViewport().then(() => {
       bindViewportCssVars();
     });
+  }
+
+  if (viewport.requestFullscreen.isAvailable()) {
+    await viewport.requestFullscreen();
+    viewport.isFullscreen(); // true
   }
 
   if (themeParams.bindCssVars.isAvailable()) {
