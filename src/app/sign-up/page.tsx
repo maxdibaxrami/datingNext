@@ -49,6 +49,8 @@ export default function SignUp() {
 
   return (
     <Page back={false}>
+      {['android', 'ios'].includes(lp.platform as string) ? <div className="top-bar-height w-full safe-area-top"></div> : null}
+
       {
         active !== Step.Language ?
         ['android', 'ios'].includes(lp.platform as string) ? 
