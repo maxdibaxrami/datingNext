@@ -56,15 +56,18 @@ export default function SignUp() {
         ['android', 'ios'].includes(lp.tgWebAppPlatform) ? 
           <div className="fixed top-0 w-full flex items-center justify-center top-bar-height safe-area-top text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="FACE MATCH" /> 
+            {active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
+
           </div> 
           :
           <div style={{marginTop:"20px", height:"20px"}} className="flex w-full items-center justify-center text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="FACE MATCH" /> 
+            {active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
+
           </div> 
         :
         null
       }
-      {active !== Step.Language && active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
 
       {active === Step.Language && <SelectLanguage   onValidChange={onValid[Step.Language]} />}
       {active === Step.Profile  && <ProfileData      onValidChange={onValid[Step.Profile]}  />}
