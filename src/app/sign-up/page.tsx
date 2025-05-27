@@ -49,11 +49,11 @@ export default function SignUp() {
 
   return (
     <Page back={false}>
-      {['android', 'ios'].includes(lp.platform as string) ? <div className="top-bar-height w-full safe-area-top"></div> : null}
+      {['android', 'ios'].includes(lp.tgWebAppPlatform) ? <div className="top-bar-height w-full safe-area-top"></div> : null}
 
       {
         active !== Step.Language ?
-        ['android', 'ios'].includes(lp.platform as string) ? 
+        ['android', 'ios'].includes(lp.tgWebAppPlatform) ? 
           <div className="fixed top-0 w-full flex items-center justify-center top-bar-height safe-area-top text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="FACE MATCH" /> 
           </div> 
