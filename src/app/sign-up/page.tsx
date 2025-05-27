@@ -63,7 +63,7 @@ export default function SignUp() {
           </div> 
         :
         null
-        }
+      }
       {active !== Step.Language && active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
 
       {active === Step.Language && <SelectLanguage   onValidChange={onValid[Step.Language]} />}
