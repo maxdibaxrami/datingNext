@@ -49,18 +49,18 @@ export default function SignUp() {
 
   return (
     <Page back={false}>
-      {['android', 'ios'].includes(lp.tgWebAppPlatform) ? <div className="top-bar-height w-full safe-area-top"></div> : null}
+      {['android', 'ios'].includes(lp.tgWebAppPlatform) ? <div className="top-bar-height background-color w-full safe-area-top"></div> : null}
 
       {
         active !== Step.Language ?
         ['android', 'ios'].includes(lp.tgWebAppPlatform) ? 
-          <div className="fixed top-0 w-full flex items-center justify-center top-bar-height safe-area-top text-center"> 
+          <div className="fixed top-0 w-full flex items-center background-color justify-center top-bar-height safe-area-top text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="FACE MATCH" /> 
             {active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
 
           </div> 
           :
-          <div style={{marginTop:"20px", height:"20px"}} className="flex w-full items-center justify-center text-center"> 
+          <div style={{marginTop:"20px", height:"20px"}} className="flex w-full background-color items-center justify-center text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="FACE MATCH" /> 
             {active !== Step.Final && <Steps count={stepCount -2} progress={active} /> }
 
