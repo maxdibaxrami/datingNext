@@ -19,7 +19,7 @@ export default function WhyYouAreHere({ onValidChange }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
-    <List className="flex flex-col main-content-safe">
+    <List className="flex flex-col">
       <Section header={t('why_you_are_here')}>
         {options.map(({ key, name, description, icon }) => (
           <Cell

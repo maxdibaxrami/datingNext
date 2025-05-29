@@ -82,7 +82,7 @@ export default function UploadImageStep({ onValidChange }: Props) {
   };
 
   return (
-    <List className="main-content-safe flex flex-col">
+    <List className="flex flex-col">
       <Section header={t('Upload_Profile_Images')}>
         <Cell
           before={<PhotoIcon className="h-7 w-7 text-emerald-500" fill="#1FB6A8" />}
