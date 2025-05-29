@@ -38,7 +38,7 @@ body {
 }
 
 .top-bar-height{
-  height: var(--tg-viewport-content-safe-area-inset-top);
+  height: var(--tg-viewport-safe-area-inset-top);
 }
 
 .top-bar-height-padding-top{
