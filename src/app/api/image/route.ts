@@ -32,8 +32,9 @@ faceapi.env.monkeyPatch({
 });
 
 // Load models once at startup
-const MODEL_PATH = './models';
+const MODEL_PATH = 'models';
 let modelsLoaded = false;
+
 async function ensureModels() {
   if (modelsLoaded) return;
   await faceapi.nets.ssdMobilenetv1.loadFromDisk(MODEL_PATH);
