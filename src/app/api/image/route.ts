@@ -33,7 +33,7 @@ faceapi.env.monkeyPatch({
 });
 
 // Load models once at startup
-const MODEL_PATH = path.join(process.cwd(), '/models');
+const MODEL_PATH = '/models';
 
 let modelsLoaded = false;
 
