@@ -50,7 +50,7 @@ export default function ProfileData({ onValidChange }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
-    <List className="h-screen flex flex-col gap-4 p-2">
+    <List className="h-screen flex flex-col gap-4 p-2 main-content-safe">
       <Section header={t('Iam')}>
         <div className="flex gap-2 p-2">
           {(['male','female'] as const).map(g => (
