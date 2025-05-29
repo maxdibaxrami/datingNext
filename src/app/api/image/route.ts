@@ -33,7 +33,7 @@ faceapi.env.monkeyPatch({
 });
 
 // Load models once at startup
-const MODEL_PATH = '/models';
+const MODEL_PATH = 'https://dating-next-gnmt.vercel.app/models';
 
 let modelsLoaded = false;
 
