@@ -46,7 +46,7 @@ body {
 }
 
 .main-content-safe{
-  height: calc(var(--tg-viewport-safe-area-inset-top) + var(--tg-viewport-content-safe-area-inset-top));
+  padding-top: calc(var(--tg-viewport-safe-area-inset-top) + var(--tg-viewport-content-safe-area-inset-top));
 }
 
 
