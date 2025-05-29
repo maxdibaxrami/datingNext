@@ -67,7 +67,7 @@ export default function SignUp() {
         :
         null
       }
-      <div style={['android', 'ios'].includes(lp.tgWebAppPlatform) ? {marginTop:"20px"} : {marginTop:"0px"}} className='top-bar-height-padding-top'></div>
+
       {active === Step.Language && <SelectLanguage   onValidChange={onValid[Step.Language]} />}
       {active === Step.Profile  && <ProfileData      onValidChange={onValid[Step.Profile]}  />}
       {active === Step.Reason   && <WhyYouAreHere    onValidChange={onValid[Step.Reason]}   />}
