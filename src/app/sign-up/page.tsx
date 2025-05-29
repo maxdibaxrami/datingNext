@@ -53,13 +53,13 @@ export default function SignUp() {
       {
         active !== Step.Language ?
         ['android', 'ios'].includes(lp.tgWebAppPlatform) ? 
-          <div className="fixed top-0 w-full flex-col flex items-center background-color justify-center main-content-safe text-center"> 
+          <div className="fixed top-0 w-full flex-col flex items-center background-color justify-center top-bar-height-padding-top text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="Mull Mull!" /> 
             {active !== Step.Final && <Steps className='w-full' count={stepCount -2} progress={active} /> }
 
           </div> 
           :
-          <div className="flex fixed top-0 w-full flex-col background-color items-center main-content-safe justify-center text-center"> 
+          <div className="flex fixed top-0 w-full flex-col background-color items-center top-bar-height-padding-top justify-center text-center"> 
             <SparklesText sparklesCount={5} className="text-xl" text="Mull Mull!" /> 
             {active !== Step.Final && <Steps className='w-full' count={stepCount -2} progress={active} /> }
 
