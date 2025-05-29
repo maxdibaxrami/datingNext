@@ -12,7 +12,7 @@ import ProfileData from '@/components/sign-up/profileData';
 import WhyYouAreHere from '@/components/sign-up/whyYouAreHere';
 import UploadImageStep from '@/components/sign-up/uploadImage';
 import SignUpFinalStep from '@/components/sign-up/finalStep';
-import { useLaunchParams } from '@telegram-apps/sdk-react';
+import { themeParams, useLaunchParams, useSignal } from '@telegram-apps/sdk-react';
 import { SparklesText } from '@/components/animation/spark-text';
 
 enum Step {
@@ -30,6 +30,7 @@ export default function SignUp() {
   const [active, setActive] = useState<Step>(Step.Language);
   const [isValidArr, setIsValidArr] = useState<boolean[]>(Array(stepCount).fill(false));
   const lp = useLaunchParams();
+  const tp = useSignal(themeParams.state);
 
   const markValid = useCallback((idx: Step, val: boolean) => {
     setIsValidArr(prev => {
@@ -85,8 +86,8 @@ export default function SignUp() {
 
       <SecondaryButton
         text={t('previous')}
-        backgroundColor="#000000"
-        textColor="#FFFFFF"
+        backgroundColor={tp.bottom_bar_bg_color}
+        textColor={tp.section_header_text_color}
         hasShineEffect={false}
         isVisible={active > Step.Language}
         onClick={() => setActive(prev => prev > Step.Language ? (prev - 1) as Step : prev)}
