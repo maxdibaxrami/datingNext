@@ -67,7 +67,7 @@ export default function SignUp() {
         :
         null
       }
-
+      <div className='top-bar-height-padding-top'></div>
       {active === Step.Language && <SelectLanguage   onValidChange={onValid[Step.Language]} />}
       {active === Step.Profile  && <ProfileData      onValidChange={onValid[Step.Profile]}  />}
       {active === Step.Reason   && <WhyYouAreHere    onValidChange={onValid[Step.Reason]}   />}
