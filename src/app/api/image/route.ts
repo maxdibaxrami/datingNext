@@ -6,6 +6,7 @@ import sharp from 'sharp';
 import * as faceapi from 'face-api.js';           // :contentReference[oaicite:6]{index=6}
 import { createCanvas, Image, ImageData } from 'canvas';
 import { createClient } from '@supabase/supabase-js';
+import path from 'node:path';
 
 // disable built-in body parser
 export const config = { api: { bodyParser: false } };
@@ -32,7 +33,8 @@ faceapi.env.monkeyPatch({
 });
 
 // Load models once at startup
-const MODEL_PATH = 'models';
+const MODEL_PATH = path.join(process.cwd(), 'models');
+
 let modelsLoaded = false;
 
 async function ensureModels() {
