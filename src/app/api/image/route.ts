@@ -39,9 +39,9 @@ let modelsLoaded = false;
 
 async function ensureModels() {
   if (modelsLoaded) return;
-  await faceapi.nets.ssdMobilenetv1.loadFromDisk(MODEL_PATH);
-  await faceapi.nets.faceLandmark68Net.loadFromDisk(MODEL_PATH);
-  await faceapi.nets.faceRecognitionNet.loadFromDisk(MODEL_PATH);
+  await faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_PATH);
+  await faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_PATH);
+  await faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_PATH);
   modelsLoaded = true;
 }
 
