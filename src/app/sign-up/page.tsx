@@ -49,7 +49,6 @@ export default function SignUp() {
 
   return (
     <Page back={false}>
-      {['android', 'ios'].includes(lp.tgWebAppPlatform) ? <div className="background-color w-full main-content-safe"></div> : null}
 
       {
         active !== Step.Language ?
