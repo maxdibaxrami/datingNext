@@ -10,8 +10,9 @@ export default function SignUpFinalStep() {
   
    async function handleSubmit() {
     try {
+            console.log(useSignUpStore.getState())
+
       await signup(useSignUpStore.getState());
-      console.log(useSignUpStore.getState())
       // Logged-in user now has a profile → router.push('/')
     } catch (err) {
       // err is ApiProblem – surface fieldErrors etc.
