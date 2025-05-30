@@ -6,7 +6,7 @@ import { persist, createJSONStorage } from 'zustand/middleware';
 
 export type Gender = 'male' | 'female';
 export interface DOB { day: string; month: string; year: string; }
-export interface ImageItem { id: string; url: string; file: File }
+export interface ImageItem { id: string; url: string; file: File, url_md:string, url_lg:string, url_sm:string }
 
 interface SignUpState {
   language: string | null;

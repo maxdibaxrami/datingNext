@@ -84,6 +84,9 @@ export default function UploadImageStep({ onValidChange }: Props) {
             successfulItems.push({
               id,
               url: urls.medium,
+              url_md:urls.medium,
+              url_sm:urls.small,
+              url_lg:urls.large,
               file,
             });
           } catch (err: any) {
