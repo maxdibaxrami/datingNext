@@ -63,7 +63,7 @@ export default function SignUp() {
     }
   }
   useEffect(()=>{
-    if(active=== Step.Final){
+    if(active === Step.Final){
       handleSubmit()
     }
   },[active])
