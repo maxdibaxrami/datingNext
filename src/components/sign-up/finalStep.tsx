@@ -6,22 +6,12 @@ export default function SignUpFinalStep() {
   const t = useTranslations('i18n');
   
   return (
-        <List className='h-screen flex flex-col'>
+        <List className='h-screen flex flex-col items-center justify-center'>
                <Placeholder
-                    description={t('may_it_take_a_while_please_wait')}
-                    header={t('uploading')}
+                    description={t('may_it_take_a_second_please_wait')}
+                    header={t("verifying_data")}
                 >
-                    <DotLottieReact
-                      src="/animations/uploadAnimation.lottie"
-                      loop
-                      autoplay
-                      style={{
-                        width: 350,    // pixels
-                        height: 350,   // pixels
-                      }}
-                    />
                 </Placeholder>
-
         </List>
    
   );      

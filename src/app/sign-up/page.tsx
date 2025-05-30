@@ -2,7 +2,7 @@
 
 import { Steps } from '@telegram-apps/telegram-ui';
 import { useTranslations } from 'next-intl';
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 
 import { Page } from '@/components/Page';
 import MainButton from '@/components/miniAppButtons/MainButton';
@@ -14,6 +14,8 @@ import UploadImageStep from '@/components/sign-up/uploadImage';
 import SignUpFinalStep from '@/components/sign-up/finalStep';
 import { themeParams, useLaunchParams, useSignal } from '@telegram-apps/sdk-react';
 import { SparklesText } from '@/components/animation/spark-text';
+import { signup } from '@/lib/api/signup';
+import { useSignUpStore } from '@/lib/stores/useSignUpStore';
 
 enum Step {
   Language,
@@ -26,9 +28,12 @@ enum Step {
 const stepCount = Object.values(Step).filter(v => typeof v === 'number').length;
 
 export default function SignUp() {
+  
   const t = useTranslations('i18n');
+
   const [active, setActive] = useState<Step>(Step.Language);
   const [isValidArr, setIsValidArr] = useState<boolean[]>(Array(stepCount).fill(false));
+
   const lp = useLaunchParams();
   const tp = useSignal(themeParams.state);
 
@@ -47,6 +52,18 @@ export default function SignUp() {
   );
 
   const canGoNext = isValidArr[active] || active === Step.Final;
+
+  async function handleSubmit() {
+    try {
+      console.log(useSignUpStore.getState());
+      // Logged-in user now has a profile → router.push('/')
+    } catch (err) {
+      // err is ApiProblem – surface fieldErrors etc.
+    }
+  }
+  useEffect(()=>{
+    handleSubmit()
+  },[])
 
   return (
     <Page back={false}>

@@ -37,12 +37,14 @@
     "next":"Next",
     "previous":"Previous",
     "uploading":"Uploading ... ",
-    "may_it_take_a_while_please_wait":"may it take a while please wait.",
+    "may_it_take_a_second_please_wait":"may it take a second please wait.",
     "login_description":"Discover new connections, chat, and find matches that fit your vibe!",
     "name_length_error":"Name must Minimum 2 characters and maximum 15. ",
     "bio_length_error":"Bio must be 3–100 characters. ",
     "invalid_dob":"enter valid date of birth",
-    "need_min_images":"Please upload at least 2 images and maximum 6 images"
+    "need_min_images":"Please upload at least 2 images and maximum 6 images",
+    "verifying_data":"Verifying data",
+    "analayzing_image":"Analayzing image... "
 
 
   }

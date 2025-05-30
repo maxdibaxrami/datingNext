@@ -17,7 +17,7 @@ export default function ProfileData({ onValidChange }: Props) {
   const t = useTranslations('i18n');
 
   // ⬇ pull only once with shallow to avoid selector loops
-  const gender    = useSignUpStore(s => s.gender);
+   const gender    = useSignUpStore(s => s.gender);
    const name      = useSignUpStore(s => s.name);
    const bio       = useSignUpStore(s => s.bio);
    const dob       = useSignUpStore(s => s.dob);
@@ -50,7 +50,7 @@ export default function ProfileData({ onValidChange }: Props) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
-    <List className="flex flex-col gap-4 p-2">
+    <List className="flex flex-col gap-4">
       <Section header={t('Iam')}>
         <div className="flex gap-2 p-2">
           {(['male','female'] as const).map(g => (
