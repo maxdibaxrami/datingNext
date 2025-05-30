@@ -1,8 +1,6 @@
-// src/lib/stores/serializeForSignup.ts
-import { SignUpState } from './useSignUpStore';
 
 /** Only send what the back-end cares about */
-export function toSignupPayload(state: SignUpState) {
+export function toSignupPayload(state: any) {
   const {
     images,
     ...rest                      // gender, name, dob, …
