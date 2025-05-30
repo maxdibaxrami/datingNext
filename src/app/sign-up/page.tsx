@@ -14,8 +14,7 @@ import UploadImageStep from '@/components/sign-up/uploadImage';
 import SignUpFinalStep from '@/components/sign-up/finalStep';
 import { themeParams, useLaunchParams, useSignal } from '@telegram-apps/sdk-react';
 import { SparklesText } from '@/components/animation/spark-text';
-import { signup } from '@/lib/api/signup';
-import { useSignUpStore } from '@/lib/stores/useSignUpStore';
+
 
 enum Step {
   Language,
@@ -53,20 +52,7 @@ export default function SignUp() {
 
   const canGoNext = isValidArr[active] || active === Step.Final;
 
-  async function handleSubmit() {
-    try {
-      await signup(useSignUpStore.getState());
-      console.log(useSignUpStore.getState())
-      // Logged-in user now has a profile → router.push('/')
-    } catch (err) {
-      // err is ApiProblem – surface fieldErrors etc.
-    }
-  }
-  useEffect(()=>{
-    if(active === Step.Final){
-      handleSubmit()
-    }
-  },[active])
+ 
 
   return (
     <Page back={false}>
