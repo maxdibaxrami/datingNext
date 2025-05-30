@@ -1,5 +1,5 @@
 /**
- * Next.js Route Handler — persists sign-up wizard data to Supabase.
+ * Next.js Route Handler — persists sign-up wizard data to Supabase
  * ============================================================================
  * ▸ Best-practice notes
  *   • Strong runtime validation with Zod (mirrors front-end types)
@@ -9,12 +9,11 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies /*  ← only cookies go into the client   */ } from 'next/headers';
-import { headers as nextHeaders /* ← use this only if you need to READ headers */ } from 'next/headers';
+import { cookies } from 'next/headers';
 import { z } from 'zod';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
-/* ── 1. Payload schema ────────────────────────────────────────────────── */
+/* ── 1. Payload schema ──────────────────────────────────────────────── */
 const dobSchema = z.object({
   day:   z.string().regex(/^([0-2]?\d|3[01])$/, 'Day must be 1-31'),
   month: z.string().regex(/^(0?[1-9]|1[0-2])$/, 'Month must be 1-12'),
@@ -22,8 +21,11 @@ const dobSchema = z.object({
 });
 
 const imageSchema = z.object({
-  id:  z.string().uuid('Invalid image id'),
-  url: z.string().url('Image URL must be valid'),
+  id:     z.string().uuid('Invalid image id'),
+  url:    z.string().url('Image URL must be valid'),
+  url_sm: z.string().url().optional(),
+  url_md: z.string().url().optional(),
+  url_lg: z.string().url().optional(),
 });
 
 const payloadSchema = z.object({
@@ -38,11 +40,11 @@ const payloadSchema = z.object({
 
 type Payload = z.infer<typeof payloadSchema>;
 
-/* ── 2. Handler ───────────────────────────────────────────────────────── */
+/* ── 2. Handler ──────────────────────────────────────────────────────── */
 export const runtime = 'edge'; // comment-out if you prefer the default Node runtime
 
 export async function POST(req: NextRequest) {
-  /* 2-1  Parse body ---------------------------------------------------- */
+  /* 2-1  Parse body --------------------------------------------------- */
   let json: unknown;
   try {
     json = await req.json();
@@ -50,7 +52,7 @@ export async function POST(req: NextRequest) {
     return problem({ type: 'invalid_request', detail: 'Body must be valid JSON' }, 400);
   }
 
-  /* 2-2  Validate ------------------------------------------------------- */
+  /* 2-2  Validate ------------------------------------------------------ */
   const parsed = payloadSchema.safeParse(json);
   if (!parsed.success) {
     return problem(
@@ -60,14 +62,14 @@ export async function POST(req: NextRequest) {
   }
   const payload: Payload = parsed.data;
 
-  /* 2-3  Transform DOB -------------------------------------------------- */
+  /* 2-3  Transform DOB ------------------------------------------------- */
   const { day, month, year } = payload.dob;
   const isoDob = new Date(Date.UTC(+year, +month - 1, +day)).toISOString().slice(0, 10);
 
-  /* 2-4  Create Supabase client ---------------------------------------- */
+  /* 2-4  Create Supabase client --------------------------------------- */
   const supabase = createRouteHandlerClient({ cookies });
 
-  /* 2-5  Persist via Postgres RPC (atomic insert) ----------------------- */
+  /* 2-5  Persist via Postgres RPC (atomic insert) ---------------------- */
   const { data: profile, error } = await supabase
     .rpc('signup_with_images', {
       p_language: payload.language,
@@ -86,11 +88,11 @@ export async function POST(req: NextRequest) {
     return problem({ type: 'database_error', detail: error.message }, status);
   }
 
-  /* 2-6  Success -------------------------------------------------------- */
+  /* 2-6  Success ------------------------------------------------------- */
   return NextResponse.json(profile, { status: 201 });
 }
 
-/* ── 3. Helpers ───────────────────────────────────────────────────────── */
+/* ── 3. Helpers ──────────────────────────────────────────────────────── */
 interface ProblemDetails {
   type:   string;
   title?: string;
@@ -100,7 +102,7 @@ interface ProblemDetails {
 
 function problem(body: ProblemDetails, status: number) {
   const base: ProblemDetails = {
-    title:  body.title ?? httpStatusText(status),
+    title: body.title ?? httpStatusText(status),
     ...body,
   };
   return NextResponse.json(base, { status });

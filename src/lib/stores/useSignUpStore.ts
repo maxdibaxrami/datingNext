@@ -55,7 +55,13 @@ export const useSignUpStore = create<SignUpState>()(
       // only persist id + url for images (File objects can’t be JSON’d)
       partialize: (state) => ({
         ...state,
-        images: state.images.map(({ id, url }) => ({ id, url })),
+        images: state.images.map(({ id, url, url_sm, url_md, url_lg }) => ({
+          id,
+          url,
+          url_sm,
+          url_md,
+          url_lg,
+        })),
       }),
     }
   )
