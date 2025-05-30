@@ -63,7 +63,7 @@ export default function SignUp() {
   }
   useEffect(()=>{
     handleSubmit()
-  },[])
+  },[active])
 
   return (
     <Page back={false}>
