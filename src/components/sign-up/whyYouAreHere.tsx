@@ -28,9 +28,9 @@ export default function WhyYouAreHere({ onValidChange }: Props) {
             before={
               <Selectable
                 name="group"
-                value={name}
-                checked={looking_for === name}
-                onChange={() => setlooking_for(name)}
+                value={key}
+                checked={looking_for === key}
+                onChange={() => setlooking_for(key)}
               />
             }
             description={t(description)}
