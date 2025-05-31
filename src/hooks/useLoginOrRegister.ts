@@ -49,7 +49,6 @@ export function useLoginOrRegister(
         setUser(si.user);
         console.log(si.user)
         await handleProfileRedirect(si.user.id);       // 🔑 redirect
-        router.replace('/sign-up');
         setLoading(false);
         return;
       }
@@ -68,6 +67,8 @@ export function useLoginOrRegister(
 
       if (su.user) {
         setUser(su.user);
+        router.replace('/home');
+
         // new users never have a profile yet → go to sign-up flow
       }
 

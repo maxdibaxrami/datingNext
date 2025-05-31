@@ -25,6 +25,10 @@ body {
 .background-color {
   background-color: var(--tg-theme-bottom-bar-bg-color);
 }
+.telegram-bg-color {
+  background-color: var(--tgui--surface_primary);
+  box-shadow: 0 -1px 0 var(--tgui--divider);
+}
 
 .safe-area-top---padding {
   padding-top: var(--tg-viewport-safe-area-inset-top);
