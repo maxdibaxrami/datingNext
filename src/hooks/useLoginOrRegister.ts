@@ -53,6 +53,7 @@ export function useLoginOrRegister(
         if (!signInError && signInData.user) {
           // Successfully signed in
           setUser(signInData.user)
+          localStorage.setItem('sb-access-token', signInData.session?.access_token || "");
           setLoading(false)
           return
         }
