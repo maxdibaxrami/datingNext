@@ -47,8 +47,8 @@ export default function SignUpFinalStep() {
           <div className="flex justify-center items-center gap-2">
             
             
-            {profileCreated? <span className='mx-0.5'>"✅"</span> : <Spinner className='mx-0.5' size="m" /> }
-            {profileCreated? t('profile_created') : t('verifying_data') }
+            {!profileCreated && <Spinner className='mx-0.5' size="m" /> }
+            {profileCreated? `✅ ${t('profile_created')}` : `${t('verifying_data')}` }
           </div>
         }
         description={!profileCreated && t('may_it_take_a_second_please_wait')}

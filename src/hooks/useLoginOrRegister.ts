@@ -49,6 +49,7 @@ export function useLoginOrRegister(
         setUser(si.user);
         console.log(si.user)
         await handleProfileRedirect(si.user.id);       // 🔑 redirect
+        router.replace('/sign-up');
         setLoading(false);
         return;
       }
