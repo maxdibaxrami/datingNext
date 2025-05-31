@@ -68,6 +68,7 @@ export async function POST(req: NextRequest) {
   const isoDob = new Date(Date.UTC(+year, +month - 1, +day)).toISOString().slice(0, 10);
 
   /* 2-4  Create Supabase client --------------------------------------- */
+  //@ts-ignore
   const supabase = createRouteHandlerClient({ cookies, headers });
   
   /* 2-5  Persist via Postgres RPC (atomic insert) ---------------------- */
