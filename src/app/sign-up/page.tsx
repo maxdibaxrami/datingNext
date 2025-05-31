@@ -19,7 +19,7 @@ import { SparklesText } from '@/components/animation/spark-text';
 enum Step {
   Language,
   Profile,
-  Reason,
+  looking_for,
   Photos,
   Final,
 }
@@ -77,7 +77,7 @@ export default function SignUp() {
 
       {active === Step.Language && <SelectLanguage   onValidChange={onValid[Step.Language]} />}
       {active === Step.Profile  && <ProfileData      onValidChange={onValid[Step.Profile]}  />}
-      {active === Step.Reason   && <WhyYouAreHere    onValidChange={onValid[Step.Reason]}   />}
+      {active === Step.looking_for   && <WhyYouAreHere    onValidChange={onValid[Step.looking_for]}   />}
       {active === Step.Photos   && <UploadImageStep onValidChange={onValid[Step.Photos]}   />}
       {active === Step.Final    && <SignUpFinalStep /> }
 

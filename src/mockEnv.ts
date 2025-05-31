@@ -53,7 +53,7 @@ export async function mockEnv(): Promise<void> {
           // https://docs.telegram-mini-apps.com/platform/init-data#parameters-list
           //
           // Note that to make sure, you are using a valid init data, you must pass it exactly as it
-          // is sent from the Telegram application. The reason is in case you will sort its keys
+          // is sent from the Telegram application. The looking_for is in case you will sort its keys
           // (auth_date, hash, user, etc.) or values your own way, init data validation will more
           // likely to fail on your server side. So, to make sure you are working with a valid init
           // data, it is better to take a real one from your application and paste it here. It should

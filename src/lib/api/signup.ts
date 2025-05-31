@@ -19,7 +19,7 @@ export interface SignUpPayload {
   name:     string;
   bio:      string;
   dob:      DOB;
-  reason:   string | null;
+  looking_for:   string | null;
   images:   ImagePayload[];     // ←-- NO File objects here!
 }
 

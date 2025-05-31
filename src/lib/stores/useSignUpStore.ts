@@ -14,7 +14,7 @@ export interface SignUpState {
   name:     string;
   bio:      string;
   dob:      DOB;
-  reason:   string | null;
+  looking_for:   string | null;
   images:   ImageItem[];
 
   setLanguage: (lng: string)            => void;
@@ -22,7 +22,7 @@ export interface SignUpState {
   setName:     (v: string)              => void;
   setBio:      (v: string)              => void;
   setDOB:      (p: Partial<DOB>)        => void;
-  setReason:   (r: string)              => void;
+  setlooking_for:   (r: string)              => void;
   addImages:   (files: ImageItem[])     => void;
   removeImage: (id: string)             => void;
 }
@@ -36,7 +36,7 @@ export const useSignUpStore = create<SignUpState>()(
       name:     '',
       bio:      '',
       dob:      { day: '', month: '', year: '' },
-      reason:   null,
+      looking_for:   null,
       images:   [],
 
       /* ─── actions ─── */
@@ -45,7 +45,7 @@ export const useSignUpStore = create<SignUpState>()(
       setName:     (v)   => set({ name:     v   }),
       setBio:      (v)   => set({ bio:      v   }),
       setDOB:      (p)   => set((st) => ({ dob: { ...st.dob, ...p } })),
-      setReason:   (r)   => set({ reason:   r   }),
+      setlooking_for:   (r)   => set({ looking_for:   r   }),
       addImages:   (imgs)=> set((st) => ({ images: [...st.images, ...imgs] })),
       removeImage: (id)  => set((st) => ({ images: st.images.filter(i => i.id !== id) })),
     }),

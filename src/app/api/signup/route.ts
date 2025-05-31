@@ -34,7 +34,7 @@ const payloadSchema = z.object({
   name:     z.string().min(1).max(100),
   bio:      z.string().min(1).max(500),
   dob:      dobSchema,
-  reason:   z.string().max(255).nullable(),
+  looking_for:   z.string().max(255).nullable(),
   images:   z.array(imageSchema).max(6),
 });
 
@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       p_name:     payload.name,
       p_bio:      payload.bio,
       p_dob:      isoDob,
-      p_reason:   payload.reason,
+      p_looking_for:   payload.looking_for,
       p_images:   payload.images,
     })
     .single();

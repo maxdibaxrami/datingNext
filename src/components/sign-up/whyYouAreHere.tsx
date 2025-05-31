@@ -12,10 +12,10 @@ export default function WhyYouAreHere({ onValidChange }: Props) {
   const t = useTranslations('i18n');
   const options = getWhyYouAreHere();
   
-  const reason    = useSignUpStore(s => s.reason);
-  const setReason = useSignUpStore(s => s.setReason);
+  const looking_for    = useSignUpStore(s => s.looking_for);
+  const setlooking_for = useSignUpStore(s => s.setlooking_for);
 
-  useEffect(() => onValidChange?.(reason !== null), [reason]);
+  useEffect(() => onValidChange?.(looking_for !== null), [looking_for]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
 
   return (
@@ -29,8 +29,8 @@ export default function WhyYouAreHere({ onValidChange }: Props) {
               <Selectable
                 name="group"
                 value={name}
-                checked={reason === name}
-                onChange={() => setReason(name)}
+                checked={looking_for === name}
+                onChange={() => setlooking_for(name)}
               />
             }
             description={t(description)}
