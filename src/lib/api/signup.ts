@@ -1,13 +1,10 @@
 // lib/api/signup.ts
 import type { DOB, Gender } from '@/lib/stores/useSignUpStore';
+import { api } from '../baseAxios';
 
-/* ──────────────────────────────────────────────────────────────
- * 1. Payload that the back-end expects
- *    (only metadata, the actual files are already in Supabase)
- * ──────────────────────────────────────────────────────────── */
 export interface ImagePayload {
   id:  string;
-  url: string;          // medium / original
+  url: string;
   url_sm?: string;
   url_md?: string;
   url_lg?: string;
@@ -19,13 +16,10 @@ export interface SignUpPayload {
   name:     string;
   bio:      string;
   dob:      DOB;
-  looking_for:   string | null;
-  images:   ImagePayload[];     // ←-- NO File objects here!
+  looking_for: string | null;
+  images:   ImagePayload[];
 }
 
-/* ──────────────────────────────────────────────────────────────
- * 2. RFC-7807 style error object
- * ──────────────────────────────────────────────────────────── */
 export type ApiProblem = {
   status: number;
   title:  string;
@@ -33,21 +27,11 @@ export type ApiProblem = {
   fieldErrors?: Record<string, string>;
 };
 
-/* ──────────────────────────────────────────────────────────────
- * 3. Helper that POSTs JSON to /api/signup
- * ──────────────────────────────────────────────────────────── */
 export async function signup(payload: SignUpPayload) {
-  const res = await fetch('/api/signup', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body:    JSON.stringify(payload),
-  });
-
-  if (!res.ok) {
-    const problem: ApiProblem = await res.json();
-    throw problem;
+  try {
+    const { data } = await api.post('/api/signup', payload);
+    return data as { ok: true; profileId: string };
+  } catch (err: any) {
+    throw (err.response?.data ?? err) as ApiProblem;
   }
-
-  // { ok: true, profileId: '…' }
-  return (await res.json()) as { ok: true; profileId: string };
 }

@@ -75,6 +75,8 @@ export function useLoginOrRegister(
         // Successfully signed up (email confirmation may be required)
         if (signUpData.user) {
           setUser(signUpData.user)
+          localStorage.setItem('sb-access-token', signInData.session?.access_token ?? '');
+
         }
         setLoading(false)
       } catch (err: unknown) {
