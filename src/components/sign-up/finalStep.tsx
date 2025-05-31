@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import confetti from 'canvas-confetti';                // ← npm i canvas-confetti
@@ -16,6 +16,8 @@ export default function SignUpFinalStep() {
   const hydrated = useSignUpStore.persist.hasHydrated();
   const state    = useSignUpStore();
 
+  const [profileCreated, setProfileCreated] = useState<boolean>(false)
+
   useEffect(() => {
     if (!hydrated) return;
 
@@ -29,7 +31,7 @@ export default function SignUpFinalStep() {
           spread: 70,
           origin: { y: 0.6 },
         });
-
+        setProfileCreated(true)
         /* ⏰ Redirect after 2 s */
         setTimeout(() => router.push('/home'), 2000);  // ← adjust path
       } catch (err) {
@@ -42,12 +44,14 @@ export default function SignUpFinalStep() {
     <List className="h-screen flex flex-col items-center justify-center">
       <Placeholder
         header={
-          <div className="flex items-center gap-2">
-            <Spinner size="m" />
-            {t('verifying_data')}
+          <div className="flex justify-center items-center gap-2">
+            
+            
+            {profileCreated? "✅" : <Spinner size="m" /> }
+            {profileCreated? t('profile_created') : t('verifying_data') }
           </div>
         }
-        description={t('may_it_take_a_second_please_wait')}
+        description={profileCreated && t('may_it_take_a_second_please_wait')}
       />
     </List>
   );

@@ -44,7 +44,8 @@
     "invalid_dob":"enter valid date of birth",
     "need_min_images":"Please upload at least 2 images and maximum 6 images",
     "verifying_data":"Verifying data",
-    "analayzing_image":"Analayzing image... "
+    "analayzing_image":"Analayzing image... ",
+    "profile_created":"Profile created successfully"
 
 
   }
