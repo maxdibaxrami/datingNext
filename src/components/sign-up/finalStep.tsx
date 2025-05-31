@@ -33,7 +33,7 @@ export default function SignUpFinalStep() {
         });
         setProfileCreated(true)
         /* ⏰ Redirect after 2 s */
-        setTimeout(() => router.push('/home'), 2000);  // ← adjust path
+        setTimeout(() => router.push('/home'), 3000);  // ← adjust path
       } catch (err) {
         console.error(err); // TODO: surface a user-friendly error
       }
@@ -47,11 +47,11 @@ export default function SignUpFinalStep() {
           <div className="flex justify-center items-center gap-2">
             
             
-            {profileCreated? "✅" : <Spinner size="m" /> }
+            {profileCreated? <span className='mx-0.5'>"✅"</span> : <Spinner className='mx-0.5' size="m" /> }
             {profileCreated? t('profile_created') : t('verifying_data') }
           </div>
         }
-        description={profileCreated && t('may_it_take_a_second_please_wait')}
+        description={!profileCreated && t('may_it_take_a_second_please_wait')}
       />
     </List>
   );
