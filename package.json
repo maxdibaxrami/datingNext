@@ -24,6 +24,7 @@
     "aws-sdk": "^2.1692.0",
     "axios": "^1.9.0",
     "canvas": "^3.1.0",
+    "canvas-confetti": "^1.9.3",
     "encoding": "^0.1.13",
     "eruda": "^3.0.1",
     "express": "^5.1.0",
@@ -48,6 +49,7 @@
   },
   "devDependencies": {
     "@telegram-apps/mate": "^0.0.26",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/formidable": "^3.4.5",
     "@types/multer": "^1.4.12",
     "@types/node": "^20",

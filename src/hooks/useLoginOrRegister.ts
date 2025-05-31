@@ -1,101 +1,98 @@
-// hooks/useLoginOrRegister.ts
-import { useState, useEffect } from 'react'
-import { SupabaseClient, User } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabaseClient'
+'use client';
 
-/**
- * Hook return type
- */
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import type { User, Session } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabaseClient';
+
+/* ─── what the hook returns ─────────────────────────────────────────── */
 interface UseLoginOrRegisterResult {
-  user: User | null
-  loading: boolean
-  error: string | null
+  user:    User | null;
+  loading: boolean;
+  error:   string | null;
 }
 
-/**
- * Attempts to sign in with the given (email, password). If the user does not exist,
- * it falls back to sign-up. Manages loading/error states, and returns the final user.
- *
- * @param email - The user’s email address.
- * @param password - The user’s password.
- * @returns {UseLoginOrRegisterResult}
- */
+/* ─── tiny helper: stash JWT in localStorage ────────────────────────── */
+function saveToken(session: Session | null) {
+  if (typeof window === 'undefined') return;          // SSR guard
+  if (session?.access_token) {
+    localStorage.setItem('sb-access-token', session.access_token);
+  }
+}
+
+/* ─── the hook itself ───────────────────────────────────────────────── */
 export function useLoginOrRegister(
   email: string,
   password: string
 ): UseLoginOrRegisterResult {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [error, setError] = useState<string | null>(null)
+  const router          = useRouter();
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error,   setError]   = useState<string | null>(null);
 
   useEffect(() => {
-    // If email or password is empty, skip authentication entirely.
-    if (!email || !password) {
-      setLoading(false)
-      return
+    if (!email || !password) { setLoading(false); return; }
+
+    let cancelled = false;
+
+    async function authFlow() {
+      setLoading(true); setError(null);
+
+      // 1 ▸ sign-in first
+      const { data: si, error: siErr } =
+        await supabase.auth.signInWithPassword({ email, password });
+
+      if (cancelled) return;
+
+      if (!siErr && si.user) {
+        saveToken(si.session ?? (await supabase.auth.getSession()).data.session);
+        setUser(si.user);
+        await handleProfileRedirect(si.user.id);       // 🔑 redirect
+        setLoading(false);
+        return;
+      }
+
+      // 2 ▸ on “user not found”, fallback to sign-up
+      const { data: su, error: suErr } =
+        await supabase.auth.signUp({ email, password });
+
+      if (cancelled) return;
+
+      if (suErr) { setError(suErr.message); setLoading(false); return; }
+
+      const session =
+        su.session ?? (await supabase.auth.getSession()).data.session;
+      saveToken(session);
+
+      if (su.user) {
+        setUser(su.user);
+        // new users never have a profile yet → go to sign-up flow
+        router.replace('/sign-up');
+      }
+
+      setLoading(false);
     }
 
-    let isCancelled = false
+    /* ─── helper: decide where to send them ─────────────────────────── */
+    async function handleProfileRedirect(uid: string) {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('id', uid)
+        .maybeSingle();
 
-    async function authenticate() {
-      setLoading(true)
-      setError(null)
+      if (error) { console.error(error); /* fail-open: stay put */ return; }
 
-      // 1) Try signing in first
-      try {
-        const {
-          data: signInData,
-          error: signInError,
-        } = await supabase.auth.signInWithPassword({ email, password })
-
-        if (isCancelled) return
-
-        if (!signInError && signInData.user) {
-          // Successfully signed in
-          setUser(signInData.user)
-          localStorage.setItem('sb-access-token', signInData.session?.access_token || "");
-          setLoading(false)
-          return
-        }
-
-        // 2) If sign-in failed (e.g. user not found), attempt sign-up
-        const {
-          data: signUpData,
-          error: signUpError,
-        } = await supabase.auth.signUp({ email, password })
-
-        if (isCancelled) return
-
-        if (signUpError) {
-          // Registration also failed; bubble up the error message
-          setError(signUpError.message)
-          setLoading(false)
-          return
-        }
-
-        // Successfully signed up (email confirmation may be required)
-        if (signUpData.user) {
-          setUser(signUpData.user)
-          localStorage.setItem('sb-access-token', signInData.session?.access_token || "");
-
-        }
-        setLoading(false)
-      } catch (err: unknown) {
-        if (isCancelled) return
-        // Capture any unexpected errors (network issues, etc.)
-        const message =
-          err instanceof Error ? err.message : 'An unexpected error occurred'
-        setError(message)
-        setLoading(false)
+      if (data) {
+        router.replace('/home');        // profile exists ✔
+      } else {
+        router.replace('/sign-up');     // no profile yet
       }
     }
 
-    authenticate()
+    authFlow();
+    return () => { cancelled = true; };
+  }, [email, password, router]);
 
-    return () => {
-      isCancelled = true
-    }
-  }, [email, password])
-
-  return { user, loading, error }
+  return { user, loading, error };
 }
