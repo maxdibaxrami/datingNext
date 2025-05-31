@@ -20,9 +20,9 @@ const dobSchema = z.object({
   year:  z.string().regex(/^\d{4}$/,            'Year must be four digits'),
 });
 
+/* the image now only carries URLs; `id` is gone */
 const imageSchema = z.object({
-  id:     z.string().uuid('Invalid image id'),
-  url:    z.string().url('Image URL must be valid'),
+  url:    z.string().url('Image URL is required'),
   url_sm: z.string().url().optional(),
   url_md: z.string().url().optional(),
   url_lg: z.string().url().optional(),
@@ -35,10 +35,11 @@ const payloadSchema = z.object({
   bio:      z.string().min(1).max(500),
   dob:      dobSchema,
   reason:   z.string().max(255).nullable(),
-  images:   z.array(imageSchema).max(6),          // hard-limit 6 photos
+  images:   z.array(imageSchema).max(6),
 });
 
 type Payload = z.infer<typeof payloadSchema>;
+
 
 /* ── 2. Handler ──────────────────────────────────────────────────────── */
 export const runtime = 'edge'; // comment-out if you prefer the default Node runtime

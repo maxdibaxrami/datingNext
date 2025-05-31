@@ -10,10 +10,11 @@ export function toSignupPayload(state: any) {
     ...rest,
     /** send an array of plain URLs (or any shape your API expects) */
     // ➜  or if your endpoint wants the four sizes:
-    images: images.map(({ url_sm, url_md, url_lg }:any) => ({
-       sm: url_sm,
-       md: url_md,
-       lg: url_lg,
-     })),
+    images: images.map(({ url, url_sm, url_md, url_lg }:any) => ({
+      url,          // required
+      url_sm,       // optional
+      url_md,       // optional
+      url_lg,       // optional
+    })),
   };
 }
