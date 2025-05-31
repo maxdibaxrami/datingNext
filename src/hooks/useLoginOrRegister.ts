@@ -47,6 +47,7 @@ export function useLoginOrRegister(
       if (!siErr && si.user) {
         saveToken(si.session ?? (await supabase.auth.getSession()).data.session);
         setUser(si.user);
+        console.log(si.user)
         await handleProfileRedirect(si.user.id);       // 🔑 redirect
         setLoading(false);
         return;
@@ -76,11 +77,14 @@ export function useLoginOrRegister(
     async function handleProfileRedirect(uid: string) {
       const { data, error } = await supabase
         .from('profiles')
-        .select('id')
+        .select('*')
         .eq('id', uid)
-        .maybeSingle();
-
-      if (error) { console.error(error); /* fail-open: stay put */ return; }
+        .single();
+      console.error(uid)
+      if (error) { 
+        router.replace('/sign-up');
+        return; 
+      }
 
       if (data) {
         router.replace('/home');        // profile exists ✔
