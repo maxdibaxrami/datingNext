@@ -67,7 +67,6 @@ export function useLoginOrRegister(
       if (su.user) {
         setUser(su.user);
         // new users never have a profile yet → go to sign-up flow
-        router.replace('/sign-up');
       }
 
       setLoading(false);
