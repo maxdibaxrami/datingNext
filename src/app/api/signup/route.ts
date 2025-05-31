@@ -9,7 +9,7 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { z } from 'zod';
 import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
 
@@ -68,8 +68,8 @@ export async function POST(req: NextRequest) {
   const isoDob = new Date(Date.UTC(+year, +month - 1, +day)).toISOString().slice(0, 10);
 
   /* 2-4  Create Supabase client --------------------------------------- */
-  const supabase = createRouteHandlerClient({ cookies });
-
+  const supabase = createRouteHandlerClient({ cookies, headers });
+  
   /* 2-5  Persist via Postgres RPC (atomic insert) ---------------------- */
   const { data: profile, error } = await supabase
     .rpc('signup_with_images', {
