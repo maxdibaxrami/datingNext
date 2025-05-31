@@ -31,7 +31,7 @@ export const useSignUpStore = create<SignUpState>()(
   persist(
     (set) => ({
       /* ─── initial data ─── */
-      language: null,
+      language: "en",
       gender:   null,
       name:     '',
       bio:      '',
