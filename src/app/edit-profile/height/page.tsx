@@ -27,7 +27,7 @@ export default function EditHeight() {
   };
 
   return (
-    <Page back>
+    <Page back={true}>
       <List className="flex flex-col p-4">
         <Section header={t('field.height')}>
           <input
