@@ -22,6 +22,7 @@ interface DraggableImageGalleryProps {
   onUpdatePhoto: (photoId: number) => void;
   onUploadPhoto: (slotIndex: number) => void;
   onDeletePhoto: (photoId: number) => void;
+  onReorder?: (newOrder: UserImage[]) => void;
 }
 
 export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
@@ -49,11 +50,12 @@ export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
             images.find((img) => img.id === id)!
           );
           setPhotos(reordered);
+          onReorder?.(reordered);
         },
       });
       return () => sortable.destroy();
     }
-  }, [images, setPhotos]);
+  }, [images, setPhotos, onReorder]);
 
   const placeholders = Math.max(0, 6 - images.length);
 
