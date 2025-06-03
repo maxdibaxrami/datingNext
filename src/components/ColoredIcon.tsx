@@ -24,3 +24,5 @@ export const ColoredIcon: React.FC<Props> = React.memo(({ color, children }) => 
     </div>
   );
 });
+
+ColoredIcon.displayName = 'ColoredIcon';

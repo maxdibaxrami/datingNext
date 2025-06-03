@@ -29,7 +29,7 @@ const CARD_SCALE = 0.96; // How much to scale each card back
 
 export default function DiscoverPage() {
   const [profileIndex, setProfileIndex] = useState(0);
-  const [dragging, setDragging] = useState(false);
+  const [dragging, setDragging] = useState<'left' | 'right' | false>(false);
   const [imageIndexes, setImageIndexes] = useState(Array(users.length).fill(0));
 
   // Handle Swiper image change per card
@@ -43,7 +43,7 @@ export default function DiscoverPage() {
 
   // Button click = animate out
   const triggerSwipe = (dir: 'left' | 'right') => {
-    setDragging(true);
+    setDragging(dir);
     setTimeout(() => {
       setDragging(false);
       setProfileIndex(i => Math.min(i + 1, users.length));

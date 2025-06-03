@@ -12,53 +12,63 @@ export const ButtonListWithDraggableImagesContainer: FC<{
   const setPhotos = usePhotoStore((state) => state.setPhotos);
 
   // Hidden file input for “update”
-  const updateInputRef = useRef<HTMLInputElement | null>(null);
-  const updatingPhotoIdRef = useRef<number | null>(null);
+  const uploadInputRef = useRef<HTMLInputElement | null>(null);
+  const uploadSlotRef = useRef<number | null>(null);
 
   // Called when user clicks an existing image
-  const handleUpdateClick = (photoId: number) => {
-    updatingPhotoIdRef.current = photoId;
-    updateInputRef.current?.click();
+  const handleUploadClick = (slotIdx: number) => {
+    uploadSlotRef.current = slotIdx;
+    uploadInputRef.current?.click();
   };
+  
 
   // On file selection → call update-photo API
-  const handleUpdateFileChange = async (
+  const handleUploadFileChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (!e.target.files?.[0] || updatingPhotoIdRef.current === null) return;
+    if (!e.target.files?.[0] || uploadSlotRef.current === null) return;
     const file = e.target.files[0];
-    const photoId = updatingPhotoIdRef.current;
-    updatingPhotoIdRef.current = null;
-    e.target.value = "";
-
+    uploadSlotRef.current = null;
+    e.target.value = '';
     try {
       const formData = new FormData();
-      formData.append("avatar", file);
-      formData.append("photoId", photoId.toString());
-
+      formData.append('avatar', file);
       const { data } = await axios.post<{
+        id: number;
         small: string;
         medium: string;
         large: string;
-      }>("/api/image/update-photo", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+        sort_order: number;
+      }>('/api/image/add-photo', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
-
-      // Build the updated array explicitly
-      const updated: UserImage[] = images.map((img) =>
-        img.id === photoId
-          ? {
-              ...img,
-              thumb_url: data.small,
-              medium_url: data.medium,
-              image_url: data.large,
-            }
-          : img
-      );
-      setPhotos(updated);
+      const newPhoto: UserImage = {
+        id: data.id,
+        user_id: null,
+        image_url: data.large,
+        thumb_url: data.small,
+        medium_url: data.medium,
+        sort_order: data.sort_order,
+        uploaded_at: new Date().toISOString(),
+        is_active: true,
+        small_url: null,
+      };
+      setPhotos([...images, newPhoto]);
     } catch (err) {
-      console.error("Failed to update photo:", err);
-      // Optionally show a toast or error message
+      console.error('Failed to upload photo:', err);
+    }
+  };
+
+  const handleReorder = async (ordered: UserImage[]) => {
+    setPhotos(ordered);
+    try {
+      await axios.post(
+        '/api/image/reorder',
+        { order: ordered.map((p) => p.id) },
+        { headers: { 'Content-Type': 'application/json' } }
+      );
+    } catch (err) {
+      console.error('Reorder API error:', err);
     }
   };
 
@@ -89,18 +99,17 @@ export const ButtonListWithDraggableImagesContainer: FC<{
         type="file"
         accept="image/*"
         style={{ display: "none" }}
-        ref={updateInputRef}
-        onChange={handleUpdateFileChange}
+        ref={uploadInputRef}
+        onChange={handleUploadFileChange}
       />
 
       <DraggableImageGallery
         images={images}
         uploadLoading={uploadLoading}
-        onUpdatePhoto={handleUpdateClick}
-        onUploadPhoto={(slotIdx) => {
-          /* your existing upload logic here */
-        }}
+        onUpdatePhoto={handleUploadClick}
+        onUploadPhoto={handleUploadClick}
         onDeletePhoto={handleDeleteClick}
+        onReorder={handleReorder}
       />
     </>
   );

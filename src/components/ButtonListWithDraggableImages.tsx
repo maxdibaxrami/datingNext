@@ -22,6 +22,8 @@ interface DraggableImageGalleryProps {
   onUpdatePhoto: (photoId: number) => void;
   onUploadPhoto: (slotIndex: number) => void;
   onDeletePhoto: (photoId: number) => void;
+  onReorder?: (newOrder: UserImage[]) => void;
+
 }
 
 export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
@@ -30,6 +32,7 @@ export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
   onUpdatePhoto,
   onUploadPhoto,
   onDeletePhoto,
+  onReorder,
 }) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const setPhotos = usePhotoStore((state) => state.setPhotos);
@@ -49,6 +52,7 @@ export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
             images.find((img) => img.id === id)!
           );
           setPhotos(reordered);
+          onReorder?.(reordered);
         },
       });
       return () => sortable.destroy();
@@ -86,7 +90,7 @@ export const DraggableImageGallery: FC<DraggableImageGalleryProps> = ({
                 className="w-full h-full cursor-pointer"
               >
                 <img
-                  src={photo.thumb_url ?? photo.medium_url}
+                  src={photo.thumb_url ?? photo.medium_url ?? ''}
                   alt={`Image ${index + 1}`}
                   className="rounded-lg aspect-square object-cover w-full h-full"
                 />
