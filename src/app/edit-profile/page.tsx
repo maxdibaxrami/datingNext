@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback, FC } from "react";
+import { useRouter } from "next/navigation";
 import { Section, Cell } from "@telegram-apps/telegram-ui";
 import {
   User,
@@ -49,8 +50,6 @@ const translations: Record<string, string> = {
   "field.gender": "Gender",
   "field.height": "Height (cm)",
   "field.bio": "Bio",
-  "field.city": "City",
-  "field.country": "Country",
   "field.smoking": "Smoking",
   "field.drinking": "Drinking",
   "field.education": "Education",
@@ -104,8 +103,6 @@ const iconBackgrounds: Record<string, string> = {
   "field.gender": "#FF69B4",
   "field.height": "#8A2BE2",
   "field.bio": "#20B2AA",
-  "field.city": "#FF8C00",
-  "field.country": "#00CED1",
   "field.smoking": "#A0522D",
   "field.drinking": "#8B0000",
   "field.education": "#2E8B57",
@@ -130,10 +127,6 @@ const getIconForField = (fieldKey: string): React.ReactNode => {
       return <Ruler size={20} color="#fff"/>;
     case "field.bio":
       return <FileText size={20} color="#fff"/>;
-    case "field.city":
-      return <MapPin size={20} color="#fff"/>;
-    case "field.country":
-      return <Globe size={20} color="#fff"/>;
     case "field.smoking":
       return <AlarmSmoke size={20} color="#fff"/>;
     case "field.drinking":
@@ -161,6 +154,7 @@ const getIconForField = (fieldKey: string): React.ReactNode => {
 
 export const EditProfilePage: FC = () => {
   const isRtl = useDirection();
+  const router = useRouter();
 
   const profile = useProfileStore((state) => state.profile);
   const setProfile = useProfileStore((state) => state.setProfile);
@@ -268,12 +262,7 @@ export const EditProfilePage: FC = () => {
           fieldKey="field.gender"
           label={t("field.gender")}
           value={localProfile.gender || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "gender",
-              prompt("Enter Gender:", localProfile.gender || "") as Profile["gender"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/gender')}
           isRtl={isRtl}
         />
         <ListCell
@@ -284,17 +273,7 @@ export const EditProfilePage: FC = () => {
               ? `${localProfile.height_cm} cm`
               : t("notSet")
           }
-          onClick={() =>
-            handleFieldChange(
-              "height_cm",
-              Number(
-                prompt(
-                  "Enter Height (cm):",
-                  localProfile.height_cm?.toString() || ""
-                )
-              ) || null
-            )
-          }
+          onClick={() => router.push('/edit-profile/height')}
           isRtl={isRtl}
         />
       </Section>
@@ -313,30 +292,6 @@ export const EditProfilePage: FC = () => {
           }
           isRtl={isRtl}
         />
-        <ListCell
-          fieldKey="field.city"
-          label={t("field.city")}
-          value={localProfile.city || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "city",
-              prompt("Enter City:", localProfile.city || "") || ""
-            )
-          }
-          isRtl={isRtl}
-        />
-        <ListCell
-          fieldKey="field.country"
-          label={t("field.country")}
-          value={localProfile.country || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "country",
-              prompt("Enter Country:", localProfile.country || "") || ""
-            )
-          }
-          isRtl={isRtl}
-        />
       </Section>
 
       {/* Lifestyle & Preferences */}
@@ -345,108 +300,63 @@ export const EditProfilePage: FC = () => {
           fieldKey="field.smoking"
           label={t("field.smoking")}
           value={localProfile.smoking || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "smoking",
-              prompt("Enter Smoking:", localProfile.smoking || "") as Profile["smoking"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/smoking')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.drinking"
           label={t("field.drinking")}
           value={localProfile.drinking || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "drinking",
-              prompt("Enter Drinking:", localProfile.drinking || "") as Profile["drinking"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/drinking')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.education"
           label={t("field.education")}
           value={localProfile.education || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "education",
-              prompt("Enter Education:", localProfile.education || "") as Profile["education"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/education')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.children"
           label={t("field.children")}
           value={localProfile.children || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "children",
-              prompt("Enter Children:", localProfile.children || "") as Profile["children"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/children')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.relationshipStatus"
           label={t("field.relationshipStatus")}
           value={localProfile.relationship_status || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "relationship_status",
-              prompt("Enter Relationship Status:", localProfile.relationship_status || "") as Profile["relationship_status"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/relationship_status')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.lookingFor"
           label={t("field.lookingFor")}
           value={localProfile.looking_for || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "looking_for",
-              prompt("Enter Looking For:", localProfile.looking_for || "") as Profile["looking_for"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/looking_for')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.religion"
           label={t("field.religion")}
           value={localProfile.religion || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "religion",
-              prompt("Enter Religion:", localProfile.religion || "") as Profile["religion"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/religion')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.zodiac"
           label={t("field.zodiac")}
           value={localProfile.zodiac || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "zodiac",
-              prompt("Enter Zodiac:", localProfile.zodiac || "") as Profile["zodiac"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/zodiac')}
           isRtl={isRtl}
         />
         <ListCell
           fieldKey="field.pets"
           label={t("field.pets")}
           value={localProfile.pets || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "pets",
-              prompt("Enter Pets:", localProfile.pets || "") as Profile["pets"]
-            )
-          }
+          onClick={() => router.push('/edit-profile/enum/pets')}
           isRtl={isRtl}
         />
       </Section>
