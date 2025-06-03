@@ -45,7 +45,25 @@
     "need_min_images":"Please upload at least 2 images and maximum 6 images",
     "verifying_data":"Verifying data",
     "analayzing_image":"Analayzing image... ",
-    "profile_created":"Profile created successfully"
+    "profile_created":"Profile created successfully",
+
+    "section1Header": "Personal Info",
+    "section1Footer": "",
+    "section2Header": "Account Controls",
+    "section2Footer": "",
+    "section3Header": "Preferences",
+    "section3Footer": "",
+    "main": "Main",
+    "More": "More...",
+    "labelPremium": "Go Premium",
+    "labelReferral": "Invite Friends",
+    "labelScore": "Profile Score",
+    "labelGiftList": "Gift List",
+    "labelSettings": "Settings",
+    "labelFAQ": "FAQ",
+    "labelLanguage": "Language Support",
+    "labelAppearance": "Appearance",
+    "editProfile":"Edit profile"
 
 
   }

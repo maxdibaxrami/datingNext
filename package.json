@@ -44,7 +44,10 @@
     "react": "^18",
     "react-cropper": "^2.3.3",
     "react-dom": "^18",
+    "react-swipeable": "^7.0.2",
     "sharp": "^0.34.2",
+    "sortablejs": "^1.15.6",
+    "swiper": "^11.2.8",
     "webpack": "^5.99.9",
     "zustand": "^5.0.5"
   },
@@ -56,6 +59,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/sortablejs": "^1.15.8",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
     "eslint": "^8",

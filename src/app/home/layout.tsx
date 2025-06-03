@@ -51,7 +51,7 @@ export default function TabsLayout({ children }: { children: React.ReactNode }) 
     <Page back={false}>
       <div className="w-full h-screen flex flex-col">
         {/* ───────────────────────── Top (Title) */}
-        <FixedLayout className='telegram-bg-color ' vertical="top" style={{ padding: 16 }}>
+        <FixedLayout className='telegram-bg-color z-50 top-bar-height-padding-top' vertical="top" style={{ padding: 16 }}>
           <BlurIn key={currentTab}>
             <span className="flex items-center justify-center gap-2">
               <ActiveIcon color="#1FB6A8" className="w-6 h-6" />
