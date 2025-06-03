@@ -33,7 +33,7 @@ import { useLocale } from "next-intl";
 import { useState as useStateHook } from "react";
 import { ButtonListWithDraggableImagesContainer } from "@/components/ButtonListWithDraggableImagesContainer";
 import { Page } from "@/components/Page";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/navigation';
 
 const translations: Record<string, string> = {
   "editProfile.title": "Edit Profile",
@@ -264,6 +264,20 @@ export default function EditProfilePage() {
           }
           isRtl={isRtl}
         />
+
+         <ListCell
+          fieldKey="field.bio"
+          label={t("field.bio")}
+          value={localProfile.bio || t("notSet")}
+          onClick={() =>
+            handleFieldChange(
+              "bio",
+              prompt("Enter Bio:", localProfile.bio || "") || ""
+            )
+          }
+          isRtl={isRtl}
+        />
+
         <ListCell
           fieldKey="field.gender"
           label={t("field.gender")}
@@ -280,46 +294,6 @@ export default function EditProfilePage() {
               : t("notSet")
           }
           onClick={() => router.push('/edit-profile/height')}
-          isRtl={isRtl}
-        />
-      </Section>
-
-      {/* Bio & Location */}
-      <Section header={t("bio.section")}>
-        <ListCell
-          fieldKey="field.bio"
-          label={t("field.bio")}
-          value={localProfile.bio || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "bio",
-              prompt("Enter Bio:", localProfile.bio || "") || ""
-            )
-          }
-          isRtl={isRtl}
-        />
-        <ListCell
-          fieldKey="field.city"
-          label={t("field.city")}
-          value={localProfile.city || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "city",
-              prompt("Enter City:", localProfile.city || "") || ""
-            )
-          }
-          isRtl={isRtl}
-        />
-        <ListCell
-          fieldKey="field.country"
-          label={t("field.country")}
-          value={localProfile.country || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "country",
-              prompt("Enter Country:", localProfile.country || "") || ""
-            )
-          }
           isRtl={isRtl}
         />
       </Section>
