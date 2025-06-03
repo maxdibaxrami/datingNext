@@ -23,8 +23,7 @@ import {
   Spinner,
 } from '@telegram-apps/telegram-ui';
 import { ImageItem, useSignUpStore } from '@/lib/stores/useSignUpStore';
-import { uploadAvatar, UploadResponse } from '@/lib/api/uploadImage';
-
+import { uploadAvatar, UploadResponse } from '@/lib/api/image';
 type Props = { onValidChange?: (valid: boolean) => void };
 
 export default function UploadImageStep({ onValidChange }: Props) {

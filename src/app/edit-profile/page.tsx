@@ -240,9 +240,7 @@ export default function EditProfilePage() {
           fieldKey="field.name"
           label={t("field.name")}
           value={localProfile.name || t("notSet")}
-          onClick={() => {
-            // TODO: Navigate to name editor
-          }}
+          onClick={() => router.push('/edit-profile/name')}
           isRtl={isRtl}
         />
         <ListCell
@@ -253,15 +251,7 @@ export default function EditProfilePage() {
               ? new Date(localProfile.birth_date).toLocaleDateString()
               : t("notSet")
           }
-          onClick={() =>
-            handleFieldChange(
-              "birth_date",
-              prompt(
-                "Enter Birth Date (YYYY-MM-DD):",
-                localProfile.birth_date || ""
-              ) || null
-            )
-          }
+          onClick={() => router.push('/edit-profile/birthday')}
           isRtl={isRtl}
         />
 
@@ -269,12 +259,7 @@ export default function EditProfilePage() {
           fieldKey="field.bio"
           label={t("field.bio")}
           value={localProfile.bio || t("notSet")}
-          onClick={() =>
-            handleFieldChange(
-              "bio",
-              prompt("Enter Bio:", localProfile.bio || "") || ""
-            )
-          }
+          onClick={() => router.push('/edit-profile/bio')}
           isRtl={isRtl}
         />
 

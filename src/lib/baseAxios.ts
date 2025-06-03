@@ -14,3 +14,17 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+api.interceptors.response.use(
+  (res) => res,
+  (err) => {
+    if (err.response?.status === 401) {
+      // remove stale token and force reload to re-authenticate
+      localStorage.removeItem('sb-access-token');
+      if (typeof window !== 'undefined') {
+        window.location.href = '/';
+      }
+    }
+    return Promise.reject(err);
+  }
+);

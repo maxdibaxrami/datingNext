@@ -4,7 +4,7 @@ import { List, Section, Cell, Selectable } from '@telegram-apps/telegram-ui';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
-import axios from 'axios';
+import { updateProfileField } from '@/lib/api/profile';
 import { Page } from '@/components/Page';
 
 const optionsMap: Record<string, string[]> = {
@@ -31,7 +31,7 @@ export default function EnumEditPage({ params }: any) {
 
   const handleSelect = useCallback(async (val: string) => {
     try {
-      await axios.post('/api/profile/update-field', { field, value: val });
+      await updateProfileField(field, val);
       if (profile) setProfile({ ...profile, [field]: val } as any);
       router.back();
     } catch (err) {

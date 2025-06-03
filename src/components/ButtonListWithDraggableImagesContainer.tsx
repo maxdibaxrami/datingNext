@@ -1,6 +1,6 @@
 // src/components/ButtonListWithDraggableImagesContainer.tsx
 import React, { useRef, FC } from "react";
-import axios from "axios";
+import { addPhoto, deletePhoto, reorderPhotos } from "@/lib/api/image";
 import { usePhotoStore } from "@/lib/stores/usePhotoStore";
 import { DraggableImageGallery } from "./ButtonListWithDraggableImages";
 import { UserImage } from "@/type/userImage";
@@ -33,15 +33,7 @@ export const ButtonListWithDraggableImagesContainer: FC<{
     try {
       const formData = new FormData();
       formData.append('avatar', file);
-      const { data } = await axios.post<{
-        id: number;
-        small: string;
-        medium: string;
-        large: string;
-        sort_order: number;
-      }>('/api/image/add-photo', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const data = await addPhoto(file);
       const newPhoto: UserImage = {
         id: data.id,
         user_id: null,
@@ -62,11 +54,7 @@ export const ButtonListWithDraggableImagesContainer: FC<{
   const handleReorder = async (ordered: UserImage[]) => {
     setPhotos(ordered);
     try {
-      await axios.post(
-        '/api/image/reorder',
-        { order: ordered.map((p) => p.id) },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+      await reorderPhotos(ordered.map((p) => p.id));
     } catch (err) {
       console.error('Reorder API error:', err);
     }
@@ -75,18 +63,11 @@ export const ButtonListWithDraggableImagesContainer: FC<{
   // “Delete” callback
   const handleDeleteClick = async (photoId: number) => {
     try {
-      const { data } = await axios.post<{ success: boolean; error?: string }>(
-        "/api/image/delete-photo",
-        { photoId },
-        { headers: { "Content-Type": "application/json" } }
-      );
-      if (data.success) {
+      await deletePhoto(photoId);
         // Build the filtered array explicitly
         const filtered: UserImage[] = images.filter((img) => img.id !== photoId);
         setPhotos(filtered);
-      } else {
-        console.error("Delete‐photo error:", data.error);
-      }
+      
     } catch (err) {
       console.error("API error on delete:", err);
     }
