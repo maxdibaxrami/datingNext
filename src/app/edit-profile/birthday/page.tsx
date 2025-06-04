@@ -15,14 +15,18 @@ export default function EditBirthday() {
   const profile = useProfileStore((s) => s.profile);
   const setProfile = useProfileStore((s) => s.setProfile);
   const [birthDate, setBirthDate] = useState<string>(profile?.birth_date ?? '');
+  const [saving, setSaving] = useState(false);
 
   const save = async () => {
     try {
+      setSaving(true);
       await updateProfileField('birth_date', birthDate || null);
       if (profile) setProfile({ ...profile, birth_date: birthDate });
       router.back();
     } catch (err) {
       console.error('update birthdate', err);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -38,7 +42,7 @@ export default function EditBirthday() {
           />
         </Section>
       </List>
-      <MainButton text={t('button.save')} onClick={save} />
+      <MainButton isLoaderVisible={saving} isEnabled={!saving} text={t('button.save')}  onClick={save} />
       <SecondaryButton text={t('button.cancel')} onClick={() => router.back()} />
     </Page>
   );

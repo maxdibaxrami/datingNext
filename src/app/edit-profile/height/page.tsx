@@ -15,14 +15,18 @@ export default function EditHeight() {
   const profile = useProfileStore(s => s.profile);
   const setProfile = useProfileStore(s => s.setProfile);
   const [height, setHeight] = useState<number>(profile?.height_cm ?? 170);
+  const [saving, setSaving] = useState(false);
 
   const save = async () => {
     try {
+      setSaving(true);
       await updateProfileField('height_cm', height);
       if (profile) setProfile({ ...profile, height_cm: height });
       router.back();
     } catch (err) {
       console.error('update height', err);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -41,7 +45,7 @@ export default function EditHeight() {
           <div className="text-center mt-2">{height} cm</div>
         </Section>
       </List>
-      <MainButton text={t('button.save')} onClick={save} />
+      <MainButton isLoaderVisible={saving} isEnabled={!saving} text={t('button.save')} onClick={save} />
       <SecondaryButton text={t('button.cancel')} onClick={() => router.back()} />
     </Page>
   );

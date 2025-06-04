@@ -14,7 +14,7 @@ interface MainButtonProps {
 
 const MainButton: React.FC<MainButtonProps> = ({
   text = 'CONTINUE',
-  backgroundColor = '#000000',  // Default as a hex string
+  backgroundColor = '#1FB6A8',  // Default as a hex string
   textColor = '#ffffff',        // Default as a hex string
   hasShineEffect = true,
   isEnabled = true,

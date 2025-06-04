@@ -1,6 +1,6 @@
 'use client';
 import { useProfileStore } from '@/lib/stores/useProfileStore';
-import { List, Section } from '@telegram-apps/telegram-ui';
+import { Input, List, Section } from '@telegram-apps/telegram-ui';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -15,14 +15,18 @@ export default function EditName() {
   const profile = useProfileStore((s) => s.profile);
   const setProfile = useProfileStore((s) => s.setProfile);
   const [name, setName] = useState<string>(profile?.name ?? '');
+  const [saving, setSaving] = useState(false);
 
   const save = async () => {
     try {
+      setSaving(true);
       await updateProfileField('name', name);
       if (profile) setProfile({ ...profile, name });
       router.back();
     } catch (err) {
       console.error('update name', err);
+    } finally {
+      setSaving(false);
     }
   };
 
@@ -30,15 +34,14 @@ export default function EditName() {
     <Page back={true}>
       <List className="flex flex-col p-4">
         <Section header={t('field.name')}>
-          <input
-            type="text"
-            className="w-full border rounded p-2"
+          <Input
             value={name}
+            placeholder={t('name')}
             onChange={(e) => setName(e.target.value)}
           />
         </Section>
       </List>
-      <MainButton text={t('button.save')} onClick={save} />
+      <MainButton isLoaderVisible={saving} isEnabled={!saving} text={t('button.save')} onClick={save} />
       <SecondaryButton text={t('button.cancel')} onClick={() => router.back()} />
     </Page>
   );

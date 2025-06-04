@@ -3,7 +3,7 @@ import { useProfileStore } from '@/lib/stores/useProfileStore';
 import { List, Section, Cell, Selectable } from '@telegram-apps/telegram-ui';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { updateProfileField } from '@/lib/api/profile';
 import { Page } from '@/components/Page';
 
@@ -26,16 +26,21 @@ export default function EnumEditPage({ params }: any) {
   const router = useRouter();
   const profile = useProfileStore(s => s.profile);
   const setProfile = useProfileStore(s => s.setProfile);
+  const [saving, setSaving] = useState(false);
 
   const options = optionsMap[field];
 
   const handleSelect = useCallback(async (val: string) => {
     try {
-      await updateProfileField(field, val);
+      setSaving(true);
+      updateProfileField(field, val);
       if (profile) setProfile({ ...profile, [field]: val } as any);
       router.back();
+
     } catch (err) {
       console.error('update field error', err);
+    }finally {
+      setSaving(false);
     }
   }, [field, profile, setProfile, router]);
 

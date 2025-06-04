@@ -166,6 +166,7 @@ export default function ProfilePage() {
                   <UserPlus size={23} color="white" strokeWidth={2} />
                 </ColoredIcon>
               }
+              onClick={() => router.push('/referral')}
               after={<ChevronByDirection isRtl={isRtl} />}
             >
               {t('labelReferral')}
