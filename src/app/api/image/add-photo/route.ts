@@ -3,6 +3,7 @@ import sharp from 'sharp';
 import * as faceapi from 'face-api.js';
 import { createCanvas, Image, ImageData } from 'canvas';
 import { createClient } from '@supabase/supabase-js';
+import { getServerUser } from '@/lib/getServerUser';
 
 faceapi.env.monkeyPatch({
   Canvas: (createCanvas(1, 1).constructor as unknown) as {
@@ -70,8 +71,14 @@ export async function POST(req: NextRequest) {
   try {
     await ensureModels();
 
-    const token = req.headers.get('authorization') ?? '';
-    const userId = token.replace('Bearer ', '').trim();
+    const user = await getServerUser(req);
+
+    if (!user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const userId = user.id;
+
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

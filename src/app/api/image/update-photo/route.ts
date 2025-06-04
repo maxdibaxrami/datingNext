@@ -5,6 +5,7 @@ import sharp from "sharp";
 import * as faceapi from "face-api.js";
 import { createCanvas, Image, ImageData } from "canvas";
 import { createClient } from "@supabase/supabase-js";
+import { getServerUser } from '@/lib/getServerUser';
 
 // Patch face‐api.js for NodeJS (same as in upload-photo)
 faceapi.env.monkeyPatch({
@@ -89,15 +90,8 @@ export async function POST(req: NextRequest) {
 
     // 2) Extract current user’s ID from a JWT or other mechanism.
     //    Adjust if you’re not using NextAuth. Here we expect NextAuth session:
-    const token = req.headers.get("authorization") ?? "";
-    // Assume Bearer <token>, decode or verify it to get user_id:
-    // (For brevity, let’s pretend we already have `userId`.)
-    // In practice, do: const session = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    // Then: const userId = session?.sub
-    //
-    // We’ll do a dummy extraction for now:
-    const userId = token.replace("Bearer ", "").trim(); // << replace with real decode
-    if (!userId) {
+     const user = await getServerUser(req);
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 

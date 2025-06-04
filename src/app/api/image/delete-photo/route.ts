@@ -2,6 +2,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { getServerUser } from '@/lib/getServerUser';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -12,11 +13,11 @@ const BUCKET = "dating-app";
 export async function POST(req: NextRequest) {
   try {
     // 1) Extract userId (same approach as update)
-    const token = req.headers.get("authorization") ?? "";
-    const userId = token.replace("Bearer ", "").trim(); // <-- replace with real auth
-    if (!userId) {
+    const user = await getServerUser(req);
+    if (!user) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
+    const userId = user.id;
 
     // 2) Parse JSON body (we expect { photoId: number })
     const { photoId } = (await req.json()) as { photoId?: number };

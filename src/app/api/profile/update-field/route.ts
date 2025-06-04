@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { getServerUser } from '@/lib/getServerUser';
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -8,11 +9,11 @@ const supabase = createClient(
 
 export async function POST(req: NextRequest) {
   try {
-    const token = req.headers.get('authorization') ?? '';
-    const userId = token.replace('Bearer ', '').trim();
-    if (!userId) {
+    const user = await getServerUser(req);
+    if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
+    const userId = user.id;
 
     const { field, value } = (await req.json()) as {
       field?: string;
