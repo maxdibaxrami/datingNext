@@ -106,6 +106,7 @@ export async function POST(req: NextRequest) {
     if (isNaN(photoId)) {
       return NextResponse.json({ error: "Invalid photoId" }, { status: 400 });
     }
+    const userId = user.id;
 
     // 4) Fetch the existing image record to verify ownership & gather old URLs:
     const { data: existingRows, error: fetchError } = await supabase
