@@ -51,14 +51,14 @@ export default function TabsLayout({ children }: { children: React.ReactNode }) 
     <Page back={false}>
       <div className="w-full h-screen flex flex-col">
         {/* ───────────────────────── Top (Title) */}
-        <FixedLayout className='sticky top-0 telegram-bg-color z-50 top-bar-height-padding-top' vertical="top" style={{ padding: 16 }}>
+        <div className='sticky top-0 telegram-bg-color z-50 top-bar-height-padding-top'>
           <BlurIn key={currentTab}>
             <span className="flex items-center justify-center gap-2">
               <ActiveIcon color="#1FB6A8" className="w-6 h-6" />
               <Text weight="1">{activeText}</Text>
             </span>
           </BlurIn>
-        </FixedLayout>
+        </div>
 
         {/* ───────────────────────── Main scroll area */}
         <div className="flex-1 overflow-auto pt-[72px] pb-[80px]">
@@ -67,7 +67,7 @@ export default function TabsLayout({ children }: { children: React.ReactNode }) 
 
         {/* ───────────────────────── Bottom Tabbar */}
         <FixedLayout vertical="bottom" style={{ padding: 16 }}>
-          <Tabbar className='pb-5 pb-3'>
+          <Tabbar className='pb-5'>
             {TABS.map(({ id, label, Icon, path }) => (
               <Tabbar.Item
                 key={id}
