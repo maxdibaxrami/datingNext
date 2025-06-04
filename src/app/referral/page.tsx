@@ -5,6 +5,8 @@ import { List, Cell, Section } from '@telegram-apps/telegram-ui';
 import MainButton from '@/components/miniAppButtons/MainButton';
 import { useTranslations } from 'next-intl';
 import { getReferrals } from '@/lib/api';
+import AddFriendsDialog from '@/components/AddFriendsDialog';
+import EmptyData from '@/components/EmptyData';
 
 export default function ReferralPage() {
   const t = useTranslations('i18n');
@@ -36,13 +38,17 @@ export default function ReferralPage() {
     }
   };
 
+
   return (
     <Page back={true}>
-      <div className="p-4 flex flex-col gap-4">
-        <MainButton text={t('share_referral')} onClick={share} />
+      <div className="flex flex-col gap-4">
+         {link && <AddFriendsDialog referral={link} />}
+
         <List>
           <Section header={t('invited_users')}>
-            {users.map(u => (
+            {users.length === 0 && <EmptyData/>}
+            
+            {users.length !== 0 && users.map(u => (
               <Cell key={u.id}>{u.name}</Cell>
             ))}
           </Section>
