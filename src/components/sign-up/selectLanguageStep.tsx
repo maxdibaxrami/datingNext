@@ -24,7 +24,7 @@ export default function SelectLanguage({ onValidChange }: Props) {
   const handleSelect = useCallback((_locale: Locale) => setPicked(true), []);
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center gap-8">
+    <div className="sticky top-0 h-screen flex flex-col items-center justify-center gap-8">
       <SparklesText className="text-5xl" text="Mull Mull!" />
        <Subheadline
           level="1"
