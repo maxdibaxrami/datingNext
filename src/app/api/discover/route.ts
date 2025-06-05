@@ -16,6 +16,8 @@ const FILTER_FIELDS = [
   'smoking',
   'drinking',
   'pets',
+  'children',
+  'zodiac',
 ];
 
 export async function GET(req: NextRequest) {

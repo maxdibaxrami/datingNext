@@ -10,6 +10,9 @@ interface ProfileState {
 
   // Action to clear (e.g. on sign-out)
   clearProfile: () => void;
+
+  updatePoints: (points: number) => void;
+
 }
 
 export const useProfileStore = create<ProfileState>((set) => ({
@@ -24,4 +27,10 @@ export const useProfileStore = create<ProfileState>((set) => ({
     set(() => ({
       profile: null,
     })),
+    
+  updatePoints: (points: number) =>
+    set((state) => ({
+      profile: state.profile ? { ...state.profile, points } : state.profile,
+    })),
+    
 }));

@@ -145,7 +145,14 @@
     "many": "Many",
     "Superlike": "Superlike",
     "Send_Gift": "Send Gift",
-    "Add_to_Favorite": "Add to Favorite"
+    "Add_to_Favorite": "Add to Favorite",
+    "Remove_Favorite": "Remove Favorite",
+    "Favorites": "Favorites",
+    "noFavorites": "No favorites",
+    "Select_Gift": "Select Gift",
+    "Select": "Select",
+    "Send": "Send"
+
 
 
   }

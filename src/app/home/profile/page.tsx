@@ -26,6 +26,7 @@ import {
   HelpCircle,
   Globe,
   Layout,
+  Heart,
 } from 'lucide-react';
 
 import { useTranslations } from 'next-intl';
@@ -187,6 +188,19 @@ export default function ProfilePage() {
 
           <Section header={t('More')}>
             {/* Gift List (Blue Violet #8A2BE2) */}
+                 {/* Favorites */}
+            <Cell
+              onClick={() => router.push('/favorites')}
+              before={
+                <ColoredIcon color="#FF69B4">
+                  <Heart size={23} color="white" strokeWidth={2} />
+                </ColoredIcon>
+              }
+              after={<ChevronByDirection isRtl={isRtl} />}
+            >
+              {t('Favorites')}
+            </Cell>
+            
             <Cell
               onClick={() => router.push('/gifts')}
               before={
