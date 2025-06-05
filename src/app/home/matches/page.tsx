@@ -100,7 +100,7 @@ export default function MatchesPage() {
           background: 'var(--tgui--secondary_bg_color)',
         }}
       >
-        <div className='flex items-center'>
+        <div className='match-list flex items-center'>
           <div className='flex flex-col gap-1 items-center justiy-center'>
             <Image
               size={48}
