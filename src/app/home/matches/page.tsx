@@ -10,7 +10,9 @@ import {
   Divider,
   List,
   Tooltip,
-  Text, // For rendering the action labels
+  Image,
+  Caption,
+  Section, // For rendering the action labels
 } from '@telegram-apps/telegram-ui';
 import { MoreVertical } from 'lucide-react'; // You can swap this icon for any “⋮” SVG
 
@@ -98,8 +100,43 @@ export default function MatchesPage() {
           background: 'var(--tgui--secondary_bg_color)',
         }}
       >
+        <div className='flex items-center'>
+          <div className='flex flex-col gap-1 items-center justiy-center'>
+            <Image
+              size={48}
+              src="https://avatars.githubusercontent.com/u/84640980?v=4"
+            />
+              <Caption
+                level="2"
+                weight="2"
+              >
+                Caption 1
+              </Caption>
+          </div>
+
+          <div>
+            <Image
+              size={48}
+              src="https://avatars.githubusercontent.com/u/84640980?v=4"
+            />
+          </div>
+
+          <div>
+            <Image
+              size={48}
+              src="https://avatars.githubusercontent.com/u/84640980?v=4"
+            />
+          </div>
+
+          <div>
+            <Image
+              size={48}
+              src="https://avatars.githubusercontent.com/u/84640980?v=4"
+            />
+          </div>
+        </div>
         {/* Wrap all rows in a single container for a consistent white bg */}
-        <div style={{ background: 'var(--tgui--bg_color)' }}>
+        <div>
           {mockChats.map((chat, idx) => {
             // Create (or reuse) a ref object for this chat’s ⋮ button:
             if (!buttonRefs.current[chat.id]) {
@@ -107,7 +144,7 @@ export default function MatchesPage() {
             }
 
             return (
-              <div key={chat.id}>
+              <Section key={chat.id}>
                 <Cell
                   before={<Avatar size={48} src={chat.avatarUrl} />}
                   after={
@@ -171,7 +208,7 @@ export default function MatchesPage() {
                     </Tooltip>
                   </BlurIn>
                 )}
-              </div>
+              </Section>
             );
           })}
         </div>
