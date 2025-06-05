@@ -15,7 +15,6 @@ const optionsMap: Record<string, string[]> = {
   children: ['no', 'yes_fulltime', 'yes_parttime', 'want_some_day'],
   relationship_status: ['single','divorced','widowed','separated','in_relationship','open_relationship'],
   looking_for: ['chat','casual','long_term','friends','virtual'],
-  religion: ['atheist','agnostic','christian','muslim','jewish','hindu','buddhist','spiritual','other'],
   zodiac: ['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces'],
   pets: ['none','dog','cat','other','many'],
 };

@@ -22,7 +22,6 @@ CREATE TYPE children_enum            AS ENUM ('no','yes_fulltime','yes_parttime'
 CREATE TYPE relationship_status_enum AS ENUM ('single','divorced','widowed','separated',
                                               'in_relationship','open_relationship');
 CREATE TYPE looking_for_enum         AS ENUM ('chat','casual','long_term','friends','virtual');
-CREATE TYPE religion_enum            AS ENUM ('atheist','agnostic','christian','muslim','jewish',
                                               'hindu','buddhist','spiritual','other');
 CREATE TYPE zodiac_enum              AS ENUM ('aries','taurus','gemini','cancer','leo','virgo',
                                               'libra','scorpio','sagittarius','capricorn','aquarius','pisces');
@@ -49,7 +48,6 @@ CREATE TABLE public.profiles (
     children        children_enum,
     relationship_status relationship_status_enum,
     looking_for     looking_for_enum,
-    religion        religion_enum,
     zodiac          zodiac_enum,
     pets            pets_enum,
     height_cm       SMALLINT,

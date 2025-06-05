@@ -142,7 +142,10 @@
     "none": "None",
     "dog": "Dog",
     "cat": "Cat",
-    "many": "Many"
+    "many": "Many",
+    "Superlike": "Superlike",
+    "Send_Gift": "Send Gift",
+    "Add_to_Favorite": "Add to Favorite"
 
 
   }

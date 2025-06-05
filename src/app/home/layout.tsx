@@ -22,7 +22,6 @@ export const TABS: TabConfig[] = [
   { id: 'discover', path: '/home/discover', label: 'Discover', Icon: Compass },
   { id: 'matches',  path: '/home/matches',  label: 'Matches',  Icon: MessagesSquare },
   { id: 'explore',  path: '/home/explore',  label: 'Explore',  Icon: Search },
-  { id: 'live',     path: '/home/live',     label: 'Live',     Icon: Video },
   { id: 'profile',  path: '/home/profile',  label: 'Profile',  Icon: UserCircle },
 ];
 
@@ -67,7 +66,7 @@ export default function TabsLayout({ children }: { children: React.ReactNode }) 
 
         {/* ───────────────────────── Bottom Tabbar */}
         <FixedLayout vertical="bottom" style={{ padding: 16 }}>
-          <Tabbar className='pb-5'>
+          <Tabbar className='pb-6'>
             {TABS.map(({ id, label, Icon, path }) => (
               <Tabbar.Item
                 key={id}

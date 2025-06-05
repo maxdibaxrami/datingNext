@@ -56,7 +56,6 @@ const translations: Record<string, string> = {
   "field.children": "Children",
   "field.relationshipStatus": "Relationship Status",
   "field.lookingFor": "Looking For",
-  "field.religion": "Religion",
   "field.zodiac": "Zodiac",
   "field.pets": "Pets",
   "field.isVisible": "Visible to Others",
@@ -111,7 +110,6 @@ const iconBackgrounds: Record<string, string> = {
   "field.children": "#FF4500",
   "field.relationshipStatus": "#DC143C",
   "field.lookingFor": "#1E90FF",
-  "field.religion": "#4B0082",
   "field.zodiac": "#FF1493",
   "field.pets": "#32CD32",
   "field.isVisible": "#4682B4",
@@ -145,8 +143,6 @@ const getIconForField = (fieldKey: string): React.ReactNode => {
       return <Heart size={20} color="#fff"/>;
     case "field.lookingFor":
       return <Search size={20} color="#fff"/>;
-    case "field.religion":
-      return <Cross size={20} color="#fff"/>;
     case "field.zodiac":
       return <Star size={20} color="#fff"/>;
     case "field.pets":
@@ -325,13 +321,6 @@ export default function EditProfilePage() {
           label={t("field.lookingFor")}
           value={localProfile.looking_for || t("notSet")}
           onClick={() => router.push('/edit-profile/enum/looking_for')}
-          isRtl={isRtl}
-        />
-        <ListCell
-          fieldKey="field.religion"
-          label={t("field.religion")}
-          value={localProfile.religion || t("notSet")}
-          onClick={() => router.push('/edit-profile/enum/religion')}
           isRtl={isRtl}
         />
         <ListCell

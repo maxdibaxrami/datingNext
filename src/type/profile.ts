@@ -45,17 +45,6 @@ export type LookingFor =
   | 'friends'
   | 'virtual';
 
-export type Religion =
-  | 'atheist'
-  | 'agnostic'
-  | 'christian'
-  | 'muslim'
-  | 'jewish'
-  | 'hindu'
-  | 'buddhist'
-  | 'spiritual'
-  | 'other';
-
 export type Zodiac =
   | 'aries'
   | 'taurus'
@@ -90,7 +79,6 @@ export interface Profile {
   children: Children | null;
   relationship_status: RelationshipStatus | null;
   looking_for: LookingFor | null;
-  religion: Religion | null;
   zodiac: Zodiac | null;
   pets: Pets | null;
   height_cm: number | null;

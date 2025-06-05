@@ -179,7 +179,7 @@ export default function ProfilePage() {
                   <Star size={23} color="white" strokeWidth={2} />
                 </ColoredIcon>
               }
-              after={<ChevronByDirection isRtl={isRtl} />}
+              after={profile.points}
             >
               {t('labelScore')}
             </Cell>
@@ -188,6 +188,7 @@ export default function ProfilePage() {
           <Section header={t('More')}>
             {/* Gift List (Blue Violet #8A2BE2) */}
             <Cell
+              onClick={() => router.push('/gifts')}
               before={
                 <ColoredIcon color="#8A2BE2">
                   <Gift size={23} color="white" strokeWidth={2} />
@@ -212,6 +213,7 @@ export default function ProfilePage() {
 
             {/* FAQ (Orange Red #FF4500) */}
             <Cell
+              onClick={() => router.push('/faq')}
               before={
                 <ColoredIcon color="#FF4500">
                   <HelpCircle size={23} color="white" strokeWidth={2} />
